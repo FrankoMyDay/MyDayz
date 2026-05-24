@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrankO · 8-Week Recovery Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f13;
+    --surface: #1a1a24;
+    --surface2: #22222f;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0eeff;
+    --text2: #9a96b4;
+    --text3: #6a6680;
+    --body-color: #4ade80;
+    --body-dim: #1a3d28;
+    --mind-color: #818cf8;
+    --mind-dim: #1e2047;
+    --career-color: #fb923c;
+    --career-dim: #3d2010;
+    --gold: #fbbf24;
+    --gold-dim: #3d2f00;
+    --danger: #f87171;
+    --danger-dim: #3d1010;
+    --success: #4ade80;
+    --success-dim: #0d2b1a;
+    --warn: #fbbf24;
+    --warn-dim: #2d2000;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 400; line-height: 1.6; padding: 2rem 1rem 5rem; }
+  .page { max-width: 860px; margin: 0 auto; }
+  header { padding: 2.5rem 0 2rem; margin-bottom: 3rem; border-bottom: 1px solid var(--border2); }
+  .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 7vw, 3.8rem); font-weight: 800; line-height: 1.05; color: var(--text); letter-spacing: -0.02em; }
+  h1 em { font-style: normal; color: var(--gold); }
+  .subtitle { margin-top: 1rem; color: var(--text2); font-size: 1rem; max-width: 580px; line-height: 1.65; }
+  .header-meta { margin-top: 1.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .meta-chip { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.9rem; border: 1px solid var(--border2); color: var(--text2); border-radius: 4px; background: var(--surface); }
+  .week-indicator { margin-top: 1.5rem; background: var(--gold-dim); border: 1px solid var(--gold); border-radius: 8px; padding: 0.85rem 1.25rem; display: inline-flex; align-items: center; gap: 1.5rem; }
+  .wk-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+  .wk-val { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+  .wk-dates { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text2); }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text3); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+  .pillar { padding: 1.5rem; border: 1px solid var(--border); background: var(--surface); border-radius: 10px; position: relative; overflow: hidden; }
+  .pillar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .pillar.body::before { background: var(--body-color); }
+  .pillar.mind::before { background: var(--mind-color); }
+  .pillar.career::before { background: var(--career-color); }
+  .pillar-icon { font-size: 1.5rem; margin-bottom: 0.6rem; display: block; }
+  .pillar h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text); }
+  .pillar ul { list-style: none; font-size: 0.83rem; color: var(--text2); line-height: 2; }
+  .pillar.body ul li::before { content: '→ '; color: var(--body-color); }
+  .pillar.mind ul li::before { content: '→ '; color: var(--mind-color); }
+  .pillar.career ul li::before { content: '→ '; color: var(--career-color); }
+  .anchor-block { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.5rem; margin-bottom: 3rem; }
+  .anchor-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--gold); }
+  .anchor-sub { font-size: 0.82rem; color: var(--text2); margin-bottom: 1.25rem; }
+  .anchor-steps { display: flex; flex-direction: column; gap: 0.5rem; }
+  .anchor-step { display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 1rem; background: var(--surface2); border-radius: 7px; font-size: 0.88rem; }
+  .anchor-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); min-width: 24px; padding-top: 0.1rem; }
+  .anchor-text strong { display: block; font-weight: 600; color: var(--text); font-size: 0.9rem; }
+  .anchor-text span { color: var(--text2); font-size: 0.8rem; }
+  .week-section { margin-bottom: 3rem; }
+  .week-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .week-tab { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; padding: 0.35rem 0.85rem; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text3); cursor: pointer; transition: all 0.15s; }
+  .week-tab:hover { border-color: var(--border2); color: var(--text2); }
+  .week-tab.active { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+  .week-tab.current { border-color: var(--body-color); color: var(--body-color); }
+  .week-tab.active.current { background: var(--success-dim); border-color: var(--body-color); color: var(--body-color); }
+  .week-panel { display: none; }
+  .week-panel.active { display: block; }
+  .week-panel-header { background: var(--surface); border: 1px solid var(--border); border-radius: 10px 10px 0 0; padding: 1.1rem 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .week-panel-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; }
+  .week-panel-dates { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text2); margin-top: 2px; }
+  .week-focus-badge { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; padding: 0.3rem 0.8rem; border-radius: 4px; white-space: nowrap; }
+  .week-focus-badge.body { background: var(--body-dim); color: var(--body-color); }
+  .week-focus-badge.build { background: var(--mind-dim); color: var(--mind-color); }
+  .week-focus-badge.momentum { background: var(--career-dim); color: var(--career-color); }
+  .checklist-grid { border: 1px solid var(--border); border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; }
+  .checklist-category { border-bottom: 1px solid var(--border); }
+  .checklist-category:last-child { border-bottom: none; }
+  .cat-header { padding: 0.6rem 1.5rem; background: var(--surface2); font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .cat-header.body { color: var(--body-color); }
+  .cat-header.mind { color: var(--mind-color); }
+  .cat-header.career { color: var(--career-color); }
+  .checklist-item { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.75rem 1.5rem; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 0.88rem; cursor: pointer; transition: background 0.1s; user-select: none; }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item:hover { background: var(--surface2); }
+  .checklist-item.checked { opacity: 0.5; }
+  .checklist-item.checked .ci-text { text-decoration: line-through; color: var(--text3); }
+  .ci-box { width: 18px; height: 18px; border: 1.5px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 11px; transition: all 0.15s; }
+  .checklist-item.checked .ci-box { background: var(--body-color); border-color: var(--body-color); color: #0f1a12; }
+  .ci-text { color: var(--text); line-height: 1.45; }
+  .ci-note { font-size: 0.76rem; color: var(--text3); margin-top: 2px; }
+  .workout-block { margin-bottom: 3rem; }
+  .day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; }
+  .day-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 0.5rem; text-align: center; }
+  .day-card.gym { border-color: var(--mind-color); }
+  .day-card.hike { border-color: var(--body-color); }
+  .day-card.flex { border-color: var(--gold); }
+  .day-card.home { border-color: var(--career-color); }
+  .day-name { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.4rem; }
+  .day-type { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; line-height: 1.3; }
+  .day-card.gym .day-type { color: var(--mind-color); }
+  .day-card.hike .day-type { color: var(--body-color); }
+  .day-card.flex .day-type { color: var(--gold); }
+  .day-card.home .day-type { color: var(--career-color); }
+  .day-icon { font-size: 1.1rem; margin-bottom: 0.3rem; display: block; }
+  .goals-block { margin-bottom: 3rem; }
+  .goals-grid { display: grid; gap: 0.6rem; }
+  .goal-row { display: grid; grid-template-columns: 160px 1fr auto; align-items: start; gap: 1.25rem; padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 0.88rem; }
+  .goal-area { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); padding-top: 0.1rem; }
+  .goal-text { color: var(--text); line-height: 1.5; }
+  .goal-measure { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--gold); text-align: right; white-space: nowrap; }
+  .coursera-block { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 3rem; }
+  .coursera-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+  .coursera-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--career-color); }
+  .coursera-sub { font-size: 0.8rem; color: var(--text2); margin-top: 3px; }
+  .coursera-target { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text2); text-align: right; }
+  .coursera-target strong { display: block; font-size: 1.1rem; color: var(--career-color); }
+  .progress-bar-wrap { background: var(--surface2); border-radius: 6px; height: 10px; overflow: hidden; margin-bottom: 0.6rem; }
+  .progress-bar-fill { height: 100%; background: var(--career-color); border-radius: 6px; transition: width 0.4s ease; }
+  .progress-meta { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); margin-bottom: 1rem; }
+  .coursera-log-row { display: grid; grid-template-columns: 1fr auto auto; gap: 0.75rem; align-items: end; }
+  .coursera-log-row input { font-family: 'DM Mono', monospace; font-size: 0.8rem; padding: 7px 12px; border: 1px solid var(--border2); border-radius: 6px; background: var(--surface2); color: var(--text); width: 100%; }
+  .log-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; padding: 7px 14px; border: 1px solid var(--career-color); border-radius: 6px; background: var(--career-dim); color: var(--career-color); cursor: pointer; white-space: nowrap; }
+  .log-btn:hover { background: var(--career-color); color: var(--bg); }
+  .reset-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 7px 14px; border: 1px solid var(--border); border-radius: 6px; background: transparent; color: var(--text3); cursor: pointer; }
+  .reset-btn:hover { color: var(--danger); border-color: var(--danger); }
+  .coursera-log-list { margin-top: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; max-height: 160px; overflow-y: auto; }
+  .log-entry { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; padding: 0.4rem 0.75rem; background: var(--surface2); border-radius: 5px; }
+  .log-entry-date { font-family: 'DM Mono', monospace; color: var(--text3); font-size: 0.7rem; }
+  .log-entry-hrs { font-family: 'DM Mono', monospace; color: var(--career-color); }
+  .log-entry-del { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 0.75rem; padding: 0 4px; }
+  .log-entry-del:hover { color: var(--danger); }
+  .accountability { margin-bottom: 3rem; }
+  .milestones { display: grid; gap: 0.6rem; }
+  .milestone { display: grid; grid-template-columns: 90px 1fr; gap: 1rem; padding: 0.9rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; align-items: start; }
+  .milestone.current-wk { border-color: var(--gold); background: var(--gold-dim); }
+  .milestone-week { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--text3); letter-spacing: 0.08em; padding-top: 1px; }
+  .milestone.current-wk .milestone-week { color: var(--gold); }
+  .milestone-text { color: var(--text2); line-height: 1.55; }
+  .tc-section { margin-bottom: 3rem; }
+  .tc-status-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .tc-date-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .tc-clock-face { font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500; color: var(--text); letter-spacing: -0.5px; }
+  .tc-state-badge { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; display: inline-block; padding: 3px 10px; border-radius: 5px; margin-top: 6px; }
+  .tc-state-badge.in { background: var(--success-dim); color: var(--success); }
+  .tc-state-badge.out { background: var(--surface2); color: var(--text3); }
+  .tc-main-btn { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 22px; border-radius: 7px; cursor: pointer; transition: all 0.15s; white-space: nowrap; border: 1px solid var(--body-color); background: var(--body-dim); color: var(--body-color); }
+  .tc-main-btn:hover { background: var(--body-color); color: var(--bg); }
+  .tc-main-btn.clocked-in { background: var(--danger-dim); color: var(--danger); border-color: var(--danger); }
+  .tc-main-btn.clocked-in:hover { background: var(--danger); color: var(--bg); }
+  .tc-session-bar { background: var(--success-dim); border: 1px solid var(--body-color); border-radius: 8px; padding: 10px 14px; font-size: 0.83rem; color: var(--text2); margin-bottom: 0.75rem; display: none; align-items: center; gap: 8px; }
+  .tc-session-bar .dur { font-family: 'DM Mono', monospace; color: var(--body-color); font-weight: 500; }
+  .tc-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+  .tc-add-btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; padding: 6px 14px; border: 1px solid var(--border2); border-radius: 6px; background: var(--surface); color: var(--text2); cursor: pointer; }
+  .tc-add-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .tc-add-form { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 0.75rem; display: none; }
+  .tc-add-row { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 8px; align-items: end; margin-bottom: 8px; }
+  .tc-field-label { display: block; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .tc-add-row input, .tc-note-input { font-family: 'DM Mono', monospace; font-size: 0.78rem; padding: 7px 10px; border: 1px solid var(--border2); border-radius: 6px; background: var(--surface); color: var(--text); width: 100%; }
+  .tc-note-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  .tc-entry { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 10px 14px; margin-bottom: 6px; display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; font-size: 0.83rem; }
+  .tc-entry.open { border-left: 3px solid var(--body-color); }
+  .tc-entry-times { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text); }
+  .tc-entry-note { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+  .tc-entry-dur { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--text2); white-space: nowrap; }
+  .tc-entry-del { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; }
+  .tc-entry-del:hover { color: var(--danger); background: var(--danger-dim); }
+  .tc-daily-total { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); text-align: right; padding: 4px 0 10px; }
+  .tc-auto-badge { font-family: 'DM Mono', monospace; font-size: 0.6rem; background: var(--warn-dim); color: var(--warn); padding: 2px 7px; border-radius: 4px; margin-top: 2px; display: inline-block; }
+  .tc-day-header { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin: 12px 0 6px; }
+  .tc-empty { font-size: 0.83rem; color: var(--text3); text-align: center; padding: 20px 0; }
+  footer { border-top: 1px solid var(--border); padding-top: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text3); letter-spacing: 0.08em; display: flex; justify-content: space-between; }
+  @media (max-width: 640px) {
+    .pillars { grid-template-columns: 1fr; }
+    .goal-row { grid-template-columns: 1fr; }
+    .goal-measure { text-align: left; }
+    .day-grid { grid-template-columns: repeat(4, 1fr); }
+    .tc-add-row { grid-template-columns: 1fr 1fr; }
+    .week-panel-header { flex-direction: column; align-items: flex-start; }
+    .milestone { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="eyebrow">FrankO · LOA Recovery Plan · 8 Weeks</div>
+    <h1>What You're<br><em>Building</em></h1>
+    <p class="subtitle">Body, mind, and direction — built around daily movement with Harley, home and gym training, and the space to recalibrate. Weeks run Sunday through Saturday.</p>
+    <div class="header-meta">
+      <div class="meta-chip">Weeks 1–8</div>
+      <div class="meta-chip">Sun → Sat</div>
+      <div class="meta-chip">Body · Mind · Career</div>
+    </div>
+    <div class="week-indicator">
+      <div>
+        <div class="wk-label">Current</div>
+        <div class="wk-val" id="wk-val">Week 1</div>
+      </div>
+      <div>
+        <div class="wk-dates" id="wk-dates"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="section-label">Morning Anchor — Daily Floor</div>
+  <div class="anchor-block">
+    <div class="anchor-title">Start here. Every day. No exceptions.</div>
+    <div class="anchor-sub">6:45 wake target. Not a schedule — just an order. Do them whenever you get up.</div>
+    <div class="anchor-steps">
+      <div class="anchor-step"><div class="anchor-num">01</div><div class="anchor-text"><strong>Bathroom + Weigh-in</strong><span>Smart scale. Log the number. Don't judge it.</span></div></div>
+      <div class="anchor-step"><div class="anchor-num">02</div><div class="anchor-text"><strong>Get dressed in workout clothes</strong><span>Laid out the night before. You're already dressed — the day has started.</span></div></div>
+      <div class="anchor-step"><div class="anchor-num">03</div><div class="anchor-text"><strong>Clock in + touch base</strong><span>Open the plan. Clock in. Drop a journal entry or get direction for the day.</span></div></div>
+      <div class="anchor-step"><div class="anchor-num">04</div><div class="anchor-text"><strong>Macros uploaded</strong><span>Log yesterday's macros into the project chat for real-time tracking.</span></div></div>
+    </div>
+  </div>
+
+  <div class="section-label">The Three Pillars</div>
+  <div class="pillars">
+    <div class="pillar body"><span class="pillar-icon">🌿</span><h3>Body</h3><ul><li>Daily movement with Harley</li><li>Macros uploaded daily</li><li>Home strength Wk 1, Gym Wk 2+</li><li>Sleep 7–8 hrs nightly</li><li>Smart scale weekly check-in</li></ul></div>
+    <div class="pillar mind"><span class="pillar-icon">🧠</span><h3>Mind</h3><ul><li>Daily meditation / breathwork</li><li>Psychologist booked + attended</li><li>Autism evaluation in process</li><li>Creative outlet weekly</li><li>LifeStance billing resolved</li></ul></div>
+    <div class="pillar career"><span class="pillar-icon">🧭</span><h3>Career</h3><ul><li>Coursera AI course — 5 hrs/week</li><li>Values + strengths inventory</li><li>Written 1-year vision by Wk 7</li><li>1–2 cert paths identified</li><li>1 book completed</li></ul></div>
+  </div>
+
+  <div class="workout-block">
+    <div class="section-label">Weekly Workout Split</div>
+    <div class="day-grid">
+      <div class="day-card home"><span class="day-icon">🏠</span><div class="day-name">Sun</div><div class="day-type">Home / Hike</div></div>
+      <div class="day-card gym"><span class="day-icon">🏋️</span><div class="day-name">Mon</div><div class="day-type">Gym</div></div>
+      <div class="day-card flex"><span class="day-icon">☀️</span><div class="day-name">Tue</div><div class="day-type">Flex / Dee</div></div>
+      <div class="day-card gym"><span class="day-icon">🏋️</span><div class="day-name">Wed</div><div class="day-type">Gym</div></div>
+      <div class="day-card hike"><span class="day-icon">🐕</span><div class="day-name">Thu</div><div class="day-type">Harley Hike</div></div>
+      <div class="day-card gym"><span class="day-icon">🏋️</span><div class="day-name">Fri</div><div class="day-type">Gym</div></div>
+      <div class="day-card hike"><span class="day-icon">🐕</span><div class="day-name">Sat</div><div class="day-type">Harley Hike</div></div>
+    </div>
+    <div style="margin-top:0.6rem;font-size:0.78rem;color:var(--text3);font-family:'DM Mono',monospace;">Week 1: Home strength + Harley walks only. Gym split begins Week 2.</div>
+  </div>
+
+  <div class="week-section">
+    <div class="section-label">Weekly Checklists</div>
+    <div class="week-tabs" id="week-tabs"></div>
+    <div id="week-panels"></div>
+  </div>
+
+  <div class="coursera-block">
+    <div class="coursera-header">
+      <div><div class="coursera-title">Coursera — AI Course</div><div class="coursera-sub">Prompting module · 5 hrs/week target</div></div>
+      <div class="coursera-target"><strong id="c-week-total">0.0 hrs</strong>this week</div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="c-bar" style="width:0%"></div></div>
+    <div class="progress-meta"><span id="c-pct">0% of weekly goal</span><span>5 hr target</span></div>
+    <div class="coursera-log-row">
+      <div><label class="tc-field-label">Hours to log</label><input type="number" id="c-input" min="0.25" max="8" step="0.25" placeholder="e.g. 1.5" /></div>
+      <button class="log-btn" onclick="logCoursera()">Log</button>
+      <button class="reset-btn" onclick="resetCourseraWeek()">Reset week</button>
+    </div>
+    <div class="coursera-log-list" id="c-log-list"></div>
+  </div>
+
+  <div class="goals-block">
+    <div class="section-label">Week 8 Targets</div>
+    <div class="goals-grid">
+      <div class="goal-row"><div class="goal-area">Body · Fat</div><div class="goal-text">Measurable reduction in body fat % and visceral fat via smart scale. Consistent caloric deficit with macro awareness.</div><div class="goal-measure">−6 to −12 lbs</div></div>
+      <div class="goal-row"><div class="goal-area">Body · Movement</div><div class="goal-text">Daily Harley walk as non-negotiable anchor. Gym 3x/week from Week 2. Step count climbing week over week.</div><div class="goal-measure">7,000+ steps/day</div></div>
+      <div class="goal-row"><div class="goal-area">Body · Sleep</div><div class="goal-text">Upward trend toward consistent 7–8 hour average. Sleep quality reflected in morning energy and focus.</div><div class="goal-measure">7.0 hr avg Wk 6</div></div>
+      <div class="goal-row"><div class="goal-area">Mind · Clinical</div><div class="goal-text">Psychologist identified and booked. Autism eval scheduled. LifeStance billing resolved.</div><div class="goal-measure">Done by Wk 2</div></div>
+      <div class="goal-row"><div class="goal-area">Mind · Practice</div><div class="goal-text">Meditation or breathwork embedded daily. One creative outlet explored and practiced weekly.</div><div class="goal-measure">40-day streak</div></div>
+      <div class="goal-row"><div class="goal-area">Career · Coursera</div><div class="goal-text">5 hours per week on AI course. Consistent weekly hours logged and tracked.</div><div class="goal-measure">5 hrs/week</div></div>
+      <div class="goal-row"><div class="goal-area">Career · Vision</div><div class="goal-text">Values + strengths inventory complete. Written 1-year career vision. 1–2 cert paths identified.</div><div class="goal-measure">Written by Wk 7</div></div>
+    </div>
+  </div>
+
+  <div class="accountability">
+    <div class="section-label">Accountability Milestones</div>
+    <div class="milestones" id="milestones"></div>
+  </div>
+
+  <div class="tc-section">
+    <div class="section-label">Daily Time Clock</div>
+    <div class="tc-status-card">
+      <div>
+        <div class="tc-date-label" id="tc-date"></div>
+        <div class="tc-clock-face" id="tc-clock"></div>
+        <div class="tc-state-badge out" id="tc-state">clocked out</div>
+      </div>
+      <button class="tc-main-btn" id="tc-main-btn" onclick="tcToggle()">Clock In</button>
+    </div>
+    <div class="tc-session-bar" id="tc-session-bar">
+      Session active — <span class="dur" id="tc-session-dur">0:00</span>
+      <span id="tc-session-note" style="margin-left:6px;font-size:0.75rem;color:var(--text3)"></span>
+    </div>
+    <div class="tc-toolbar">
+      <div class="section-label" style="margin-bottom:0;flex:1">Today</div>
+      <button class="tc-add-btn" onclick="tcShowAdd()">+ add / fix entry</button>
+    </div>
+    <div class="tc-add-form" id="tc-add-form">
+      <div class="tc-add-row">
+        <div><label class="tc-field-label">Date</label><input type="date" id="add-date" /></div>
+        <div><label class="tc-field-label">Clock in</label><input type="time" id="add-in" /></div>
+        <div><label class="tc-field-label">Clock out</label><input type="time" id="add-out" placeholder="leave blank" /></div>
+        <div style="padding-bottom:1px"><button class="tc-main-btn" style="font-size:0.65rem;padding:8px 14px" onclick="tcAddEntry()">Add</button></div>
+      </div>
+      <div class="tc-note-row">
+        <div><label class="tc-field-label">Note (optional)</label><input class="tc-note-input" type="text" id="add-note" placeholder="e.g. golf, errands, doctor" /></div>
+        <button class="tc-add-btn" style="margin-top:16px" onclick="document.getElementById('tc-add-form').style.display='none'">Cancel</button>
+      </div>
+    </div>
+    <div id="tc-today-log"></div>
+    <div style="margin-top:1.25rem">
+      <div class="section-label">Previous Days</div>
+      <div id="tc-prev-log"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>FrankO · LOA Recovery Plan · 8 Weeks</span>
+    <span>Floor not ceiling · earn your way up</span>
+  </footer>
+
+</div>
+<script>
+const PLAN_START = new Date('2025-05-25');
+const TOTAL_WEEKS = 8;
+
+const WEEK_DATA = [
+  { title:'Week 1 — The Foundation', focus:'body', focusLabel:'Body First', note:'No gym yet. Walk, stretch, home strength. Lock in the morning anchor.',
+    body:[{text:'Morning weigh-in on smart scale',note:'Every day'},{text:'Harley walk — 30 min minimum',note:'Non-negotiable daily anchor'},{text:'Stretch or yoga session',note:'10–20 min, any time'},{text:'Home strength workout',note:'Dumbbells — push, pull, hinge'},{text:'Macros uploaded to project chat',note:'Log daily for real-time tracking'},{text:'Sleep 7+ hours',note:''}],
+    mind:[{text:'Meditation or breathwork',note:'10 min min — Insight Timer or box breathing'},{text:'Pay LifeStance bill',note:'Remove the friction'},{text:'Search for a psychologist',note:'Psychology Today directory or referrals'}],
+    career:[{text:'Coursera — log study hours',note:'Target 5 hrs this week'},{text:'Set up macro tracking app',note:'Cronometer or MyFitnessPal'}]
+  },
+  { title:'Week 2 — Gym Begins', focus:'build', focusLabel:'Build Begins', note:'Gym split starts Mon / Wed / Fri. Harley hikes Thu / Sat / Sun.',
+    body:[{text:'Morning weigh-in daily',note:''},{text:'Harley walk or hike — Thu, Sat, Sun',note:'Longer routes when possible'},{text:'Gym session — Mon, Wed, Fri',note:'Full body compound movements'},{text:'Macros uploaded daily',note:''},{text:'Smart scale check-in #1',note:'Compare to baseline'},{text:'Sleep 7+ hours',note:''}],
+    mind:[{text:'Meditation streak — 7+ days',note:''},{text:'Psychologist identified and booked',note:'First appointment confirmed'},{text:'Autism evaluation call made',note:'Waitlists are long — start now'}],
+    career:[{text:'Coursera — 5 hrs logged',note:''},{text:'Begin values + strengths inventory',note:''}]
+  },
+  { title:'Week 3 — Building Momentum', focus:'momentum', focusLabel:'Momentum', note:'Habits should be clicking. Add intensity where it feels right.',
+    body:[{text:'Morning weigh-in daily',note:''},{text:'Gym — Mon, Wed, Fri',note:'Add weight or reps from last week'},{text:'Harley hike — Thu, Sat, Sun',note:'Explore new routes'},{text:'Macros uploaded daily',note:''},{text:'Sleep average trending up',note:''}],
+    mind:[{text:'Meditation streak 14+ days',note:''},{text:'First psych appointment attended',note:'Or confirmed date set'},{text:'Creative outlet explored',note:'Drums, writing, drawing — no agenda'}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'Values inventory progressing',note:'At least half complete'},{text:'Career reading — 30 min sessions',note:''}]
+  },
+  { title:'Week 4 — Compounding', focus:'build', focusLabel:'Compounding', note:"One month in. The habits are there. Let them compound.",
+    body:[{text:'Gym — Mon, Wed, Fri',note:'Track weights — progressive overload'},{text:'Harley hike — Thu, Sat, Sun',note:''},{text:'Macros uploaded daily',note:''},{text:'Body weight trend visible',note:''}],
+    mind:[{text:'Meditation — 21+ day streak',note:''},{text:'Psych session attended',note:''},{text:'Creative outlet weekly',note:''}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'Values + strengths inventory complete',note:'Written, not just thought about'},{text:'Explore 1–2 cert paths',note:''}]
+  },
+  { title:'Week 5 — Midpoint', focus:'body', focusLabel:'Midpoint Check', note:'Smart scale check-in #2. Compare to baseline. Adjust what is not working.',
+    body:[{text:'Smart scale check-in #2',note:'Full comparison to Week 1 baseline'},{text:'Gym — Mon, Wed, Fri',note:''},{text:'Harley hike — Thu, Sat, Sun',note:''},{text:'Macros uploaded daily',note:''},{text:'Sleep averaging 7 hrs',note:''}],
+    mind:[{text:'Meditation — 30+ day streak',note:''},{text:'Psych session attended',note:''},{text:'Creative outlet weekly',note:''}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'Cert path research complete',note:'1–2 directions identified'}]
+  },
+  { title:'Week 6 — Sleep Target', focus:'body', focusLabel:'Sleep Goal', note:'Sleep hitting 7 hr average. First book finished.',
+    body:[{text:'Gym — Mon, Wed, Fri',note:''},{text:'Harley hike — Thu, Sat, Sun',note:''},{text:'Sleep 7 hr weekly average',note:'The target — log and track'},{text:'Macros uploaded daily',note:''}],
+    mind:[{text:'Meditation — 40+ day streak',note:''},{text:'Psych session attended',note:''},{text:'Creative outlet weekly',note:''}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'First book completed',note:''},{text:'1–2 career directions researched in depth',note:''}]
+  },
+  { title:'Week 7 — Vision', focus:'momentum', focusLabel:'Career Focus', note:'Write the 1-year vision. This is the week it goes on paper.',
+    body:[{text:'Gym — Mon, Wed, Fri',note:''},{text:'Harley hike — Thu, Sat, Sun',note:''},{text:'Macros uploaded daily',note:''},{text:'Body composition showing clear change',note:''}],
+    mind:[{text:'Meditation daily',note:''},{text:'Psych session attended',note:''}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'1-year career vision — written',note:'Drafted on paper not just in your head'},{text:'Cert / course path decided',note:''}]
+  },
+  { title:'Week 8 — The Finish', focus:'build', focusLabel:'Full Recap', note:'Full comparison vs. baseline. Reflect. Define what comes next.',
+    body:[{text:'Smart scale full comparison vs. Week 1',note:'All metrics — document everything'},{text:'Gym — Mon, Wed, Fri',note:''},{text:'Harley hike — Thu, Sat, Sun',note:''},{text:'Macros uploaded daily',note:''}],
+    mind:[{text:'Meditation — 56-day streak',note:'Every day of the plan'},{text:'Clinical next steps defined',note:'Psych ongoing? Autism eval results?'}],
+    career:[{text:'Coursera — 5 hrs',note:''},{text:'Career vision finalized',note:''},{text:'Define what comes after LOA',note:''}]
+  }
+];
+
+const MILESTONES = [
+  {week:'Week 1',text:'Morning anchor established · First Harley walk logged · Macros tracking started · Meditation day 1 · LifeStance paid'},
+  {week:'Week 2',text:'First gym session · Psychologist booked · Autism eval call made · Smart scale check-in #1'},
+  {week:'Week 3',text:'Meditation 14-day streak · First psych session attended · Gym progressive overload begun · Career reading active'},
+  {week:'Week 4–5',text:'Values inventory complete · Creative outlet chosen · Body weight trending down · Coursera 20+ hrs total'},
+  {week:'Week 6',text:'Sleep hitting 7 hr average · First book finished · Smart scale check-in #2 vs. baseline · 40-day meditation streak'},
+  {week:'Week 7',text:'Written 1-year career vision drafted · Cert path decided · Body composition clear change'},
+  {week:'Week 8',text:'Full smart scale comparison · Career vision finalized · Clinical next steps defined · What comes next?'}
+];
+
+function getCurrentWeek() {
+  const now = new Date(); const start = new Date(PLAN_START);
+  start.setHours(0,0,0,0); now.setHours(0,0,0,0);
+  return Math.min(Math.max(Math.floor((now - start)/(7*86400000))+1,1),TOTAL_WEEKS);
+}
+
+function getWeekDates(w) {
+  const s = new Date(PLAN_START); s.setDate(s.getDate()+(w-1)*7);
+  const e = new Date(s); e.setDate(e.getDate()+6);
+  const f = d => d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return f(s)+' – '+f(e);
+}
+
+const CL_KEY='franko_checklist_v1';
+function loadCL(){try{return JSON.parse(localStorage.getItem(CL_KEY))||{};}catch{return{};}}
+function saveCL(d){localStorage.setItem(CL_KEY,JSON.stringify(d));}
+
+function toggleCheck(wi,cat,ii){const d=loadCL();const k=`w${wi}_${cat}_${ii}`;d[k]=!d[k];saveCL(d);buildWeeks();}
+
+function buildWeeks(){
+  const cw=getCurrentWeek(); const tabsEl=document.getElementById('week-tabs'); const panelsEl=document.getElementById('week-panels'); const cl=loadCL();
+  tabsEl.innerHTML=''; panelsEl.innerHTML='';
+  WEEK_DATA.forEach((wk,i)=>{
+    const wn=i+1; const isCur=wn===cw;
+    const tab=document.createElement('button');
+    tab.className='week-tab'+(isCur?' active current':'');
+    tab.textContent='Wk '+wn; tab.onclick=()=>switchWeek(i); tabsEl.appendChild(tab);
+    const panel=document.createElement('div');
+    panel.className='week-panel'+(isCur?' active':''); panel.id='panel-'+i;
+    const cats=[{key:'body',label:'Body',items:wk.body},{key:'mind',label:'Mind',items:wk.mind},{key:'career',label:'Career',items:wk.career}];
+    let html=`<div class="week-panel-header"><div><div class="week-panel-title">${wk.title}</div><div class="week-panel-dates">${getWeekDates(wn)}</div>${wk.note?`<div style="font-size:0.8rem;color:var(--text2);margin-top:6px">${wk.note}</div>`:''}</div><span class="week-focus-badge ${wk.focus}">${wk.focusLabel}</span></div><div class="checklist-grid">`;
+    cats.forEach(cat=>{
+      html+=`<div class="checklist-category"><div class="cat-header ${cat.key}">${cat.label}</div>`;
+      cat.items.forEach((item,idx)=>{
+        const k=`w${i}_${cat.key}_${idx}`; const chk=cl[k]?'checked':'';
+        html+=`<div class="checklist-item ${chk}" onclick="toggleCheck(${i},'${cat.key}',${idx})"><div class="ci-box">${cl[k]?'✓':''}</div><div><div class="ci-text">${item.text}</div>${item.note?`<div class="ci-note">${item.note}</div>`:''}</div></div>`;
+      });
+      html+=`</div>`;
+    });
+    html+=`</div>`; panel.innerHTML=html; panelsEl.appendChild(panel);
+  });
+}
+
+function switchWeek(idx){
+  document.querySelectorAll('.week-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.week-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+}
+
+function updateWeekIndicator(){const cw=getCurrentWeek();document.getElementById('wk-val').textContent='Week '+cw;document.getElementById('wk-dates').textContent=getWeekDates(cw);}
+
+function buildMilestones(){
+  const cw=getCurrentWeek();
+  document.getElementById('milestones').innerHTML=MILESTONES.map((m,i)=>{
+    const wn=i+1; const isCur=wn===cw;
+    return `<div class="milestone${isCur?' current-wk':''}"><div class="milestone-week">${m.week}</div><div class="milestone-text">${m.text}</div></div>`;
+  }).join('');
+}
+
+const C_KEY='franko_coursera_v1';
+function loadC(){try{return JSON.parse(localStorage.getItem(C_KEY))||{entries:[]};}catch{return{entries:[]};}}
+function saveC(d){localStorage.setItem(C_KEY,JSON.stringify(d));}
+
+function getWeekStart(){const n=new Date();const s=new Date(n);s.setDate(n.getDate()-n.getDay());return s.toISOString().slice(0,10);}
+
+function logCoursera(){
+  const val=parseFloat(document.getElementById('c-input').value);
+  if(!val||val<=0)return;
+  const d=loadC();
+  d.entries.push({id:Date.now(),date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),hrs:val,weekStart:getWeekStart()});
+  saveC(d); document.getElementById('c-input').value=''; renderCoursera();
+}
+
+function deleteCoursera(id){const d=loadC();d.entries=d.entries.filter(e=>e.id!==id);saveC(d);renderCoursera();}
+
+function resetCourseraWeek(){
+  if(!confirm("Reset this week's Coursera hours?"))return;
+  const d=loadC();const ws=getWeekStart();d.entries=d.entries.filter(e=>e.weekStart!==ws);saveC(d);renderCoursera();
+}
+
+function renderCoursera(){
+  const d=loadC();const ws=getWeekStart();const we=d.entries.filter(e=>e.weekStart===ws);
+  const total=we.reduce((s,e)=>s+e.hrs,0);const pct=Math.min((total/5)*100,100);
+  document.getElementById('c-week-total').textContent=total.toFixed(1)+' hrs';
+  document.getElementById('c-bar').style.width=pct+'%';
+  document.getElementById('c-pct').textContent=Math.round(pct)+'% of weekly goal';
+  const list=document.getElementById('c-log-list');
+  if(!we.length){list.innerHTML='<div class="tc-empty">No hours logged this week yet.</div>';return;}
+  list.innerHTML=we.slice().reverse().map(e=>`<div class="log-entry"><span class="log-entry-date">${e.date}</span><span class="log-entry-hrs">${e.hrs} hr${e.hrs!==1?'s':''}</span><button class="log-entry-del" onclick="deleteCoursera(${e.id})">✕</button></div>`).join('');
+}
+
+const TC_KEY='franko_timeclock_v1';
+function loadTC(){try{return JSON.parse(localStorage.getItem(TC_KEY))||{entries:[]};}catch{return{entries:[]};}}
+function saveTC(d){localStorage.setItem(TC_KEY,JSON.stringify(d));}
+
+function todayStr(){const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+function fmtTime(ts){if(!ts)return'—';const d=new Date(ts);let h=d.getHours(),m=d.getMinutes();const ap=h>=12?'pm':'am';h=h%12||12;return h+':'+String(m).padStart(2,'0')+' '+ap;}
+function fmtDur(ms){if(!ms||ms<0)return'—';const h=Math.floor(ms/3600000);const m=Math.floor((ms%3600000)/60000);return h>0?h+'h '+m+'m':m+'m';}
+function getActiveEntry(){const d=loadTC();return d.entries.find(e=>e.day===todayStr()&&!e.out);}
+
+function tcToggle(){const d=loadTC();const a=d.entries.find(e=>e.day===todayStr()&&!e.out);if(a){a.out=Date.now();a.autoOut=false;}else{d.entries.push({id:Date.now(),day:todayStr(),in:Date.now(),out:null,note:'',autoOut:false});}saveTC(d);renderTC();}
+function tcDeleteEntry(id){const d=loadTC();d.entries=d.entries.filter(e=>e.id!==id);saveTC(d);renderTC();}
+function tcShowAdd(){const f=document.getElementById('tc-add-form');f.style.display=f.style.display==='none'?'block':'none';document.getElementById('add-date').value=todayStr();}
+
+function tcAddEntry(){
+  const dv=document.getElementById('add-date').value,iv=document.getElementById('add-in').value,ov=document.getElementById('add-out').value,nv=document.getElementById('add-note').value.trim();
+  if(!dv||!iv)return;
+  const[iy,im,id2]=dv.split('-').map(Number);const[ih,imin]=iv.split(':').map(Number);const inTs=new Date(iy,im-1,id2,ih,imin).getTime();
+  let outTs=null;if(ov){const[oh,om]=ov.split(':').map(Number);outTs=new Date(iy,im-1,id2,oh,om).getTime();}
+  const d=loadTC();d.entries.push({id:Date.now(),day:dv,in:inTs,out:outTs,note:nv,autoOut:false});saveTC(d);
+  document.getElementById('add-in').value='';document.getElementById('add-out').value='';document.getElementById('add-note').value='';document.getElementById('tc-add-form').style.display='none';renderTC();
+}
+
+function renderTCEntries(entries,container){
+  if(!entries.length){container.innerHTML='<div class="tc-empty">No entries yet.</div>';return;}
+  const byDay={};entries.forEach(e=>{if(!byDay[e.day])byDay[e.day]=[];byDay[e.day].push(e);});
+  const days=Object.keys(byDay).sort((a,b)=>b.localeCompare(a));let html='';
+  days.forEach(day=>{
+    const de=byDay[day].sort((a,b)=>a.in-b.in);let total=0;de.forEach(e=>{if(e.out)total+=e.out-e.in;});
+    if(days.length>1){const dd=new Date(day+'T12:00:00');html+=`<div class="tc-day-header">${dd.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'})}</div>`;}
+    de.forEach(e=>{html+=`<div class="tc-entry${!e.out?' open':''}"><div><div class="tc-entry-times">${fmtTime(e.in)} → ${e.out?fmtTime(e.out):'<span style="color:var(--body-color)">active</span>'}</div>${e.note?`<div class="tc-entry-note">${e.note}</div>`:''}${e.autoOut?`<div><span class="tc-auto-badge">auto midnight</span></div>`:''}</div><div class="tc-entry-dur">${e.out?fmtDur(e.out-e.in):'—'}</div><button class="tc-entry-del" onclick="tcDeleteEntry(${e.id})">✕</button></div>`;});
+    if(total>0)html+=`<div class="tc-daily-total">Day total — ${fmtDur(total)}</div>`;
+  });
+  container.innerHTML=html;
+}
+
+function renderTC(){
+  const d=loadTC();const today=todayStr();const active=d.entries.find(e=>e.day===today&&!e.out);
+  const btn=document.getElementById('tc-main-btn');const state=document.getElementById('tc-state');const bar=document.getElementById('tc-session-bar');
+  if(active){btn.textContent='Clock Out';btn.className='tc-main-btn clocked-in';state.textContent='clocked in';state.className='tc-state-badge in';bar.style.display='flex';document.getElementById('tc-session-note').textContent=active.note||'';}
+  else{btn.textContent='Clock In';btn.className='tc-main-btn';state.textContent='clocked out';state.className='tc-state-badge out';bar.style.display='none';}
+  renderTCEntries(d.entries.filter(e=>e.day===today),document.getElementById('tc-today-log'));
+  renderTCEntries(d.entries.filter(e=>e.day!==today),document.getElementById('tc-prev-log'));
+}
+
+function updateClock(){
+  const n=new Date();const h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();const ap=h>=12?'pm':'am';const hh=h%12||12;
+  document.getElementById('tc-clock').textContent=hh+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+' '+ap;
+  document.getElementById('tc-date').textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const active=getActiveEntry();if(active)document.getElementById('tc-session-dur').textContent=fmtDur(Date.now()-active.in);
+  if(h===0&&m===0&&s<3){const d=loadTC();let changed=false;d.entries.forEach(e=>{if(!e.out){const mid=new Date();mid.setHours(0,0,0,0);e.out=mid.getTime();e.autoOut=true;changed=true;}});if(changed){saveTC(d);renderTC();}}
+}
+
+document.getElementById('add-date').value=todayStr();
+updateWeekIndicator(); buildWeeks(); buildMilestones(); renderCoursera(); renderTC();
+setInterval(updateClock,1000); updateClock();
+</script>
+</body>
+</html>
