@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/frank/Downloads/index_1.html -->
+<!-- saved from url=(0045)file:///C:/Users/frank/Downloads/index_5.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Calendar of FrankO</title>
-<link href="./The Calendar of FrankO_files/css2" rel="stylesheet">
+<link href="./The Calendar of FrankO13_files/css2" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0a0f;
@@ -512,7 +512,7 @@ body.is-reflect .reflect-only{display:block}
     <div>
       <div class="eyebrow">The Calendar of FrankO</div>
       <div class="app-title"><em>Week <span id="hdr-week">1</span></em> · FrankO</div>
-      <div class="app-sub" id="hdr-date">Sunday, May 24, 2026 · Day 2</div>
+      <div class="app-sub" id="hdr-date">Monday, May 25, 2026 · Day 2</div>
     </div>
     <div class="stat-strip">
       <div class="stat-pill">
@@ -553,7 +553,7 @@ body.is-reflect .reflect-only{display:block}
         </div>
         <div class="week-right">
           <div class="tier-badge none" id="tier-badge">No tier yet</div>
-          <div class="week-ceil" id="week-days-left">5 days remaining</div>
+          <div class="week-ceil" id="week-days-left">6 days remaining</div>
         </div>
       </div>
       <div style="margin-top:.6rem;margin-bottom:.5rem">
@@ -578,18 +578,18 @@ body.is-reflect .reflect-only{display:block}
       <div class="row">
         <div>
           <div class="lbl" style="margin-bottom:4px">Clock</div>
-          <div class="clock-display" id="live-clock">10:56:15 PM</div>
-          <div class="clock-status" id="clock-status">Not clocked in</div>
+          <div class="clock-display" id="live-clock">1:17:54 PM</div>
+          <div class="clock-status" id="clock-status">Working — clock out when done</div>
         </div>
         <div class="btn-row">
-          <button class="btn g" id="btn-in" onclick="clockIn()">Clock in</button>
-          <button class="btn r hidden" id="btn-out" onclick="clockOut()">Clock out</button>
+          <button class="btn g hidden" id="btn-in" onclick="clockIn()">Clock in</button>
+          <button class="btn r" id="btn-out" onclick="clockOut()">Clock out</button>
         </div>
       </div>
-      <div class="session-row hidden" id="session-row">
-        <div class="col"><div class="lbl">In</div><div class="session-val" id="si-in">—</div></div>
-        <div class="col"><div class="lbl">Out</div><div class="session-val" id="si-out">—</div></div>
-        <div class="col"><div class="lbl">Duration</div><div class="session-val" id="si-dur">—</div></div>
+      <div class="session-row" id="session-row">
+        <div class="col"><div class="lbl">In</div><div class="session-val" id="si-in">1:05 PM</div></div>
+        <div class="col"><div class="lbl">Out</div><div class="session-val" id="si-out">ongoing</div></div>
+        <div class="col"><div class="lbl">Duration</div><div class="session-val" id="si-dur">in progress</div></div>
       </div>
     </div>
 
@@ -599,7 +599,7 @@ body.is-reflect .reflect-only{display:block}
         <div class="lbl">Week <span id="week-day-label">1</span> — daily progress</div>
         <div class="lbl" id="week-hit-count">0 of 7 days</div>
       </div>
-      <div class="week-days" id="week-days-strip"><div class="wday"><div class="wday-name">Sat</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday today"><div class="wday-name">Sun</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Mon</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Tue</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Wed</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Thu</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Fri</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div></div>
+      <div class="week-days" id="week-days-strip"><div class="wday"><div class="wday-name">Sun</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday today"><div class="wday-name">Mon</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Tue</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Wed</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Thu</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Fri</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Sat</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div></div>
     </div>
 
     <!-- TASK SUMMARY -->
@@ -613,16 +613,16 @@ body.is-reflect .reflect-only{display:block}
     </div>
 
     <div class="section-head">Daily anchors</div>
-    <div class="tasks" id="task-list"><div class="task" id="tr0"><div class="chk" id="chk0">✓</div><div style="flex:1"><div class="task-name">Walk with Harley</div><div class="task-meta">Morning anchor · non-negotiable</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr1"><div class="chk" id="chk1">✓</div><div style="flex:1"><div class="task-name">Stretch / mobility / tai chi</div><div class="task-meta">Daily · before or after walk</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr2"><div class="chk" id="chk2">✓</div><div style="flex:1"><div class="task-name">Strength session</div><div class="task-meta">Wed · Fri · Sun only · gym or home</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr3"><div class="chk" id="chk3">✓</div><div style="flex:1"><div class="task-name">Meditation</div><div class="task-meta">10–30 min · build the streak</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr4"><div class="chk" id="chk4">✓</div><div style="flex:1"><div class="task-name">Coursera</div><div class="task-meta">Weekly module progress · non-negotiable</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr5"><div class="chk" id="chk5">✓</div><div style="flex:1"><div class="task-name">Reading</div><div class="task-meta">Career-aligned books · 20+ min</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr6"><div class="chk" id="chk6">✓</div><div style="flex:1"><div class="task-name">Job search / work block</div><div class="task-meta">Applications · LinkedIn · research</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr7"><div class="chk" id="chk7">✓</div><div style="flex:1"><div class="task-name">Sleep logged</div><div class="task-meta">Log last night's hours in app</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr8"><div class="chk" id="chk8">✓</div><div style="flex:1"><div class="task-name">Nightly routine</div><div class="task-meta">Wash face · beard oil · clothes laid out</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div></div>
+    <div class="tasks" id="task-list"><div class="task" id="tr0"><div class="chk" id="chk0">✓</div><div style="flex:1"><div class="task-name">Walk with Harley</div><div class="task-meta">Morning anchor · non-negotiable</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr1"><div class="chk" id="chk1">✓</div><div style="flex:1"><div class="task-name">Stretch / mobility / tai chi</div><div class="task-meta">Daily · before or after walk</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task inactive" id="tr2"><div class="chk" id="chk2">✓</div><div style="flex:1"><div class="task-name">Strength session</div><div class="task-meta">Wed · Fri · Sun only · gym or home · not today</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr3"><div class="chk" id="chk3">✓</div><div style="flex:1"><div class="task-name">Meditation</div><div class="task-meta">10–30 min · build the streak</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr4"><div class="chk" id="chk4">✓</div><div style="flex:1"><div class="task-name">Coursera</div><div class="task-meta">Weekly module progress · non-negotiable</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr5"><div class="chk" id="chk5">✓</div><div style="flex:1"><div class="task-name">Reading</div><div class="task-meta">Career-aligned books · 20+ min</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr6"><div class="chk" id="chk6">✓</div><div style="flex:1"><div class="task-name">Job search / work block</div><div class="task-meta">Applications · LinkedIn · research</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr7"><div class="chk" id="chk7">✓</div><div style="flex:1"><div class="task-name">Sleep logged</div><div class="task-meta">Log last night's hours in app</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr8"><div class="chk" id="chk8">✓</div><div style="flex:1"><div class="task-name">Nightly routine</div><div class="task-meta">Wash face · beard oil · clothes laid out</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div></div>
 
     <div class="section-head">Bonus tasks</div>
     <div class="tasks" id="bonus-list"><div class="task bonus-task" id="tr9"><div class="chk" id="chk9">✓</div><div style="flex:1"><div class="task-name">The Extra Mile</div><div class="task-meta">Additional movement beyond the walk</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr10"><div class="chk" id="chk10">✓</div><div style="flex:1"><div class="task-name">Smart scale weigh-in</div><div class="task-meta">Weekly — log in Reflect tab</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr11"><div class="chk" id="chk11">✓</div><div style="flex:1"><div class="task-name">Macros uploaded</div><div class="task-meta">Log full day macros into project chat</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div></div>
 
     <div class="sep"></div>
     <div class="lbl" style="margin-bottom:8px">Daily log</div>
-    <div class="share-box" id="share-box">LOA Recovery — Sunday, May 24 · Week 1
+    <div class="share-box" id="share-box">LOA Recovery — Monday, May 25 · Week 1
 
-In: —  ·  Out: still going  ·  —
+In: 1:05 PM  ·  Out: still going  ·  —
 
 Anchors:
 ○ Walk with Harley
@@ -874,7 +874,7 @@ const BONUS=[
   {id:11,name:'Macros uploaded',meta:'Log full day macros into project chat',tag:'bonus',pts:1},
 ];
 const WEEKS=8;
-const DEFAULT_START='2026-05-24';
+const DEFAULT_START='2026-05-25';
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 // Progressive tier definitions — thresholds increase by phase
@@ -903,9 +903,16 @@ const TIERS=TIER_PHASES[0];
 let S={
   tasks:Array(12).fill(false),
   clockIn:null,clockOut:null,
-  days:{},
-  weekRewards:{},   // {weekNum: {tier, amt, claimed}}
-  reflections:{},   // {weekNum: {weight,bf,visceral,muscle,sleep,coursera,notes}}
+  days:{
+    '2026-5-24':{
+      tasks:[true,true,true,true,true,true,true,true,true,false,false,false],
+      clockIn:'2026-05-24T08:00:00',
+      clockOut:'2026-05-24T20:00:00',
+      perfect:false
+    }
+  },
+  weekRewards:{},
+  reflections:{},
   setup:{
     spouse:'doriannemaxwell@gmail.com',mom:'fkwell@yahoo.com',paypal:'frankomaxwell1980@outlook.com',
     buylink:'',buylabel:'',
@@ -933,7 +940,7 @@ function isSunday(){return new Date().getDay()===0;}
 
 // ── PERSISTENCE ──────────────────────────────────────
 function load(){
-  try{const r=localStorage.getItem('loa_v7');if(r)S=JSON.parse(r);}catch(e){}
+  try{const r=localStorage.getItem('loa_v8');if(r)S=JSON.parse(r);}catch(e){}
   if(!S.days)S.days={};
   if(!S.weekRewards)S.weekRewards={};
   if(!S.reflections)S.reflections={};
@@ -961,7 +968,7 @@ function persist(){
   S.days[k].anchors=anchors;
   S.days[k].done=anchors>=5;
   S.days[k].perfect=anchors===9;
-  try{localStorage.setItem('loa_v7',JSON.stringify(S));}catch(e){}
+  try{localStorage.setItem('loa_v8',JSON.stringify(S));}catch(e){}
 }
 
 // ── TIER CALCULATION ─────────────────────────────────
@@ -1427,7 +1434,7 @@ function devUnlockAll(){
 
 function openPayPal(){const e=S.setup.paypal;if(!e){alert('Add your PayPal email in Setup.');return;}const t=calcTotalEarned();if(t===0){alert('No rewards earned yet to cash out.');return;}window.open('https://www.paypal.com/myaccount/transfer/homepage/pay?email='+encodeURIComponent(e)+'&amount='+t);}
 function openBuyLink(){const u=S.setup.buylink;if(!u){alert('Add buy link in Setup.');return;}window.open(u);}
-function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v7');}catch(e){}init();}
+function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v8');}catch(e){}init();}
 
 // ── TABS ─────────────────────────────────────────────
 function showTab(name){
