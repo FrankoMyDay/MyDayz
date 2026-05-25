@@ -3,7 +3,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyDayz · FrankO</title>
+<title>The Calendar of FrankO</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -510,9 +510,9 @@ body.is-sunday .sunday-only{display:block}
   <!-- HEADER -->
   <div class="header">
     <div>
-      <div class="eyebrow">LOA Recovery Program</div>
+      <div class="eyebrow">The Calendar of FrankO</div>
       <div class="app-title"><em>Week <span id="hdr-week">1</span></em> · FrankO</div>
-      <div class="app-sub" id="hdr-date">Monday, May 11, 2026 · Day 2</div>
+      <div class="app-sub" id="hdr-date"></div>
     </div>
     <div class="stat-strip">
       <div class="stat-pill">
@@ -532,11 +532,10 @@ body.is-sunday .sunday-only{display:block}
 
   <!-- TABS -->
   <div class="tab-nav">
-    <button class="tnav on" onclick="showTab(&#39;today&#39;)">Today</button>
-    <button class="tnav" onclick="showTab(&#39;progress&#39;)">Progress</button>
-    <button class="tnav" onclick="showTab(&#39;sunday&#39;)">Sunday</button>
-    <button class="tnav" onclick="showTab(&#39;reward&#39;)">Reward</button>
-    <button class="tnav" onclick="showTab(&#39;setup&#39;)">Setup</button>
+    <button class="tnav on" onclick="showTab('today')">Today</button>
+    <button class="tnav" onclick="showTab('progress')">Progress</button>
+    <button class="tnav" onclick="showTab('sunday')">Sunday</button>
+    <button class="tnav" onclick="showTab('setup')">Setup</button>
   </div>
 
   <!-- ══════════════════════════════════════════
@@ -550,7 +549,7 @@ body.is-sunday .sunday-only{display:block}
         <div>
           <div class="week-lbl">This week's earnings</div>
           <div class="week-earned" id="week-earned-display">$0</div>
-          <div class="week-sub" id="week-sub-msg">Phase: Show Up · Build anchors to hit Foundation ($20)</div>
+          <div class="week-sub" id="week-sub-msg">Phase: Show Up · Build anchors to hit Foundation ($30)</div>
         </div>
         <div class="week-right">
           <div class="tier-badge none" id="tier-badge">No tier yet</div>
@@ -560,21 +559,16 @@ body.is-sunday .sunday-only{display:block}
       <div style="margin-top:.6rem;margin-bottom:.5rem">
         <span style="font-family:&#39;Geist Mono&#39;,monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-dim)" id="phase-label">Week 1 · Show Up</span>
       </div>
-      <div class="tier-track">
+      <div class="tier-track" style="grid-template-columns:1fr 1fr">
         <div class="tier-step" id="tier1-step">
-          <div class="tier-step-amt">$20</div>
+          <div class="tier-step-amt">$30</div>
           <div class="tier-step-lbl">Foundation</div>
           <div class="tier-step-req">4+ anchors for 4+ days</div>
         </div>
-        <div class="tier-step" id="tier2-step">
-          <div class="tier-step-amt">$45</div>
-          <div class="tier-step-lbl">Solid Week</div>
-          <div class="tier-step-req">5+ anchors for 5+ days<br>1 bonus task</div>
-        </div>
         <div class="tier-step" id="tier3-step">
-          <div class="tier-step-amt">$70</div>
+          <div class="tier-step-amt">$75</div>
           <div class="tier-step-lbl">Perfect Week</div>
-          <div class="tier-step-req">6+ anchors for 5+ days<br>2 bonus tasks</div>
+          <div class="tier-step-req">6+ anchors for 6+ days<br>2 bonus tasks</div>
         </div>
       </div>
     </div>
@@ -688,25 +682,6 @@ Streak: 0 days</div>
     <div class="reflection-hero">
       <div class="reflection-title"><em>Sunday</em> Reflection</div>
       <div class="reflection-sub" id="reflection-week-sub">Week 1 check-in · log your numbers</div>
-    </div>
-
-    <!-- WEEK REWARD CLAIM -->
-    <div class="card" id="reward-claim-card">
-      <div class="lbl" style="margin-bottom:10px">This week's reward</div>
-      <div class="row" style="flex-wrap:wrap;gap:12px">
-        <div>
-          <div style="font-family:&#39;Cormorant Garamond&#39;,serif;font-size:36px;font-weight:500;color:var(--gold2)" id="sunday-tier-amt">$0</div>
-          <div class="tier-badge none" id="sunday-tier-badge" style="margin-top:6px">Check your progress</div>
-        </div>
-        <div style="flex:1;min-width:180px">
-          <div class="pbar-wrap"><div class="pbar gold" id="sunday-tier-bar" style="width:0%"></div></div>
-          <div class="pbar-lbl" id="sunday-tier-desc" style="margin-top:4px;line-height:1.6">Complete the week to see your tier</div>
-          <div style="margin-top:10px">
-            <button class="btn gold" id="claim-btn" onclick="claimWeekReward()">Claim week reward →</button>
-            <div class="hidden" id="claimed-msg" style="font-size:11px;color:var(--green2);margin-top:6px;font-family:&#39;Geist Mono&#39;,monospace">✓ Week reward claimed</div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- BODY COMPOSITION -->
@@ -833,12 +808,19 @@ Streak: 0 days</div>
       <div class="setup-field"><label class="setup-lbl">Spouse email (Dee)</label><input type="email" id="s-spouse" placeholder="dee@email.com" oninput="saveSetup()"></div>
       <div class="setup-field"><label class="setup-lbl">Mom's email</label><input type="email" id="s-mom" placeholder="mom@email.com" oninput="saveSetup()"></div>
 
-      <div class="setup-section">Week 8 reward — PayPal</div>
+      <div class="setup-section">Reward — PayPal cashout</div>
       <div class="setup-field"><label class="setup-lbl">Your PayPal email</label><input type="email" id="s-paypal" placeholder="you@paypal.com" oninput="saveSetup()"></div>
 
-      <div class="setup-section">Week 8 reward — Buy link</div>
+      <div class="setup-section">Reward — Buy link</div>
       <div class="setup-field"><label class="setup-lbl">What do you want to buy?</label><input type="text" id="s-buylabel" placeholder="e.g. Lalo Tactical belt" oninput="saveSetup()"></div>
       <div class="setup-field"><label class="setup-lbl">URL</label><input type="url" id="s-buylink" placeholder="https://..." oninput="saveSetup()"></div>
+
+      <div class="setup-section">Cashout anytime</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.7">Claim rewards weekly on the Today tab. Cash out whenever you're ready — no need to wait for Week 8.</div>
+      <div class="btn-row">
+        <button class="btn gold" onclick="openPayPal()">Send $<span id="cashout-amt">0</span> to myself via PayPal</button>
+        <button class="btn" onclick="openBuyLink()">Open buy link →</button>
+      </div>
 
       <div class="setup-section">Program</div>
       <div class="setup-field"><label class="setup-lbl">Start date</label><input type="date" id="s-start" oninput="saveSetup();recalcAll()"></div>
@@ -934,13 +916,18 @@ let S={
 
 function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function weekStart(weekNum){
+  // Plan starts on a Sunday. Each week is Sun–Sat.
   const s=new Date(S.setup.start||DEFAULT_START);
-  s.setDate(s.getDate()+(weekNum-1)*7);return s;
+  s.setHours(0,0,0,0);
+  s.setDate(s.getDate()+(weekNum-1)*7);
+  return s;
 }
 function currentWeek(){
   const start=new Date(S.setup.start||DEFAULT_START);
-  const now=new Date();
-  return Math.min(Math.max(Math.floor((now-start)/(7*24*3600*1000))+1,1),WEEKS);
+  start.setHours(0,0,0,0);
+  const now=new Date();now.setHours(0,0,0,0);
+  const daysDiff=Math.floor((now-start)/(24*3600*1000));
+  return Math.min(Math.max(Math.floor(daysDiff/7)+1,1),WEEKS);
 }
 function isSunday(){return new Date().getDay()===0;}
 
@@ -1103,13 +1090,18 @@ function renderWeekHero(){
   if(claimed){badge.textContent='✓ Claimed — '+claimed.name;badge.className='tier-badge '+(TIERS.find(t=>t.name===claimed.name)||{cls:'t1'}).cls;}
   else if(tier){badge.textContent=tier.name;badge.className='tier-badge '+tier.cls;}
   else{badge.textContent='No tier yet';badge.className='tier-badge none';}
-  // tier steps — update with progressive requirements
+  // tier steps — two tiers only
   const wkTiers=getTiers(wk);
-  [0,1,2].forEach(idx=>{
-    const step=document.getElementById('tier'+(3-idx)+'-step');
-    const t=wkTiers[idx];
-    // Update requirement text dynamically
+  // tier1-step = Foundation (index 1), tier3-step = Perfect Week (index 0)
+  const tierMap=[{id:'tier1-step',tidx:1},{id:'tier3-step',tidx:0}];
+  tierMap.forEach(({id,tidx})=>{
+    const step=document.getElementById(id);if(!step)return;
+    const t=wkTiers[tidx];if(!t)return;
+    const amtEl=step.querySelector('.tier-step-amt');
     const reqEl=step.querySelector('.tier-step-req');
+    const lblEl=step.querySelector('.tier-step-lbl');
+    if(amtEl)amtEl.textContent='$'+t.amt;
+    if(lblEl)lblEl.textContent=t.name;
     if(reqEl)reqEl.innerHTML=t.req.replace(' + ','<br>');
     if(claimed&&claimed.amt>=t.amt){step.className='tier-step achieved';}
     else if(tier&&tier.amt===t.amt){step.className='tier-step active';}
@@ -1121,7 +1113,7 @@ function renderWeekHero(){
   const daysLeft=Math.max(0,Math.ceil((weekEndDate-new Date())/(24*3600*1000)));
   document.getElementById('week-days-left').textContent=daysLeft===0?'Last day of week':daysLeft+' day'+(daysLeft===1?'':'s')+' remaining';
   const phase=getPhaseName(wk);
-  document.getElementById('week-sub-msg').textContent=tier?'On track for '+tier.name+' — keep it up':'Phase: '+phase+' · Build anchors to hit Foundation ($20)';
+  document.getElementById('week-sub-msg').textContent=tier?'On track for '+tier.name+' — keep it up':'Phase: '+phase+' · Build anchors to hit Foundation ($30)';
   const phaseEl=document.getElementById('phase-label');
   if(phaseEl)phaseEl.textContent='Week '+wk+' · '+phase;
 }
@@ -1169,6 +1161,7 @@ function renderStats(){
   if(document.getElementById('prog-streak'))document.getElementById('prog-streak').textContent=streak;
   if(document.getElementById('prog-perfect'))document.getElementById('prog-perfect').textContent=Object.values(S.days).filter(d=>d.perfect).length;
   if(document.getElementById('prog-earned'))document.getElementById('prog-earned').textContent='$'+total;
+  if(document.getElementById('cashout-amt'))document.getElementById('cashout-amt').textContent=total;
 }
 
 // ── PUZZLE ───────────────────────────────────────────
@@ -1432,7 +1425,7 @@ function devUnlockAll(){
   persist();renderStats();renderWeekHero();renderRewardTab();showTab('reward');
 }
 
-function openPayPal(){const e=S.setup.paypal;if(!e){alert('Add PayPal email in Setup.');return;}const t=calcTotalEarned();window.open('https://www.paypal.com/myaccount/transfer/homepage/pay?email='+encodeURIComponent(e)+'&amount='+t);}
+function openPayPal(){const e=S.setup.paypal;if(!e){alert('Add your PayPal email in Setup.');return;}const t=calcTotalEarned();if(t===0){alert('No rewards earned yet to cash out.');return;}window.open('https://www.paypal.com/myaccount/transfer/homepage/pay?email='+encodeURIComponent(e)+'&amount='+t);}
 function openBuyLink(){const u=S.setup.buylink;if(!u){alert('Add buy link in Setup.');return;}window.open(u);}
 function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v6');}catch(e){}init();}
 
@@ -1441,11 +1434,10 @@ function showTab(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tnav').forEach(b=>b.classList.remove('on'));
   document.getElementById('tab-'+name).classList.add('on');
-  const map={today:0,progress:1,sunday:2,reward:3,setup:4};
+  const map={today:0,progress:1,sunday:2,setup:3};
   document.querySelectorAll('.tnav')[map[name]].classList.add('on');
   if(name==='progress')renderProgress(currentWeek());
   if(name==='sunday')renderSundayTab();
-  if(name==='reward')renderRewardTab();
 }
 
 // ── LIVE CLOCK ───────────────────────────────────────
