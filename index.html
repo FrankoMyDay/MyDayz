@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///C:/Users/frank/Downloads/loa_v2.html -->
+<!-- saved from url=(0045)file:///C:/Users/frank/Downloads/index_1.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Calendar of FrankO</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="./The Calendar of FrankO_files/css2" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0a0f;
@@ -500,8 +500,8 @@ body::after{
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 
 /* sunday only visible state */
-.sunday-only{display:none}
-body.is-sunday .sunday-only{display:block}
+.reflect-only{display:none}
+body.is-reflect .reflect-only{display:block}
 </style>
 </head>
 <body>
@@ -512,7 +512,7 @@ body.is-sunday .sunday-only{display:block}
     <div>
       <div class="eyebrow">The Calendar of FrankO</div>
       <div class="app-title"><em>Week <span id="hdr-week">1</span></em> · FrankO</div>
-      <div class="app-sub" id="hdr-date"></div>
+      <div class="app-sub" id="hdr-date">Sunday, May 24, 2026 · Day 2</div>
     </div>
     <div class="stat-strip">
       <div class="stat-pill">
@@ -532,10 +532,10 @@ body.is-sunday .sunday-only{display:block}
 
   <!-- TABS -->
   <div class="tab-nav">
-    <button class="tnav on" onclick="showTab('today')">Today</button>
-    <button class="tnav" onclick="showTab('progress')">Progress</button>
-    <button class="tnav" onclick="showTab('sunday')">Sunday</button>
-    <button class="tnav" onclick="showTab('setup')">Setup</button>
+    <button class="tnav on" onclick="showTab(&#39;today&#39;)">Today</button>
+    <button class="tnav" onclick="showTab(&#39;progress&#39;)">Progress</button>
+    <button class="tnav" onclick="showTab(&#39;reflect&#39;)">Sunday</button>
+    <button class="tnav" onclick="showTab(&#39;setup&#39;)">Setup</button>
   </div>
 
   <!-- ══════════════════════════════════════════
@@ -578,7 +578,7 @@ body.is-sunday .sunday-only{display:block}
       <div class="row">
         <div>
           <div class="lbl" style="margin-bottom:4px">Clock</div>
-          <div class="clock-display" id="live-clock">10:24:42 PM</div>
+          <div class="clock-display" id="live-clock">10:56:15 PM</div>
           <div class="clock-status" id="clock-status">Not clocked in</div>
         </div>
         <div class="btn-row">
@@ -599,7 +599,7 @@ body.is-sunday .sunday-only{display:block}
         <div class="lbl">Week <span id="week-day-label">1</span> — daily progress</div>
         <div class="lbl" id="week-hit-count">0 of 7 days</div>
       </div>
-      <div class="week-days" id="week-days-strip"><div class="wday"><div class="wday-name">Sun</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday today"><div class="wday-name">Mon</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Tue</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Wed</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Thu</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Fri</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Sat</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div></div>
+      <div class="week-days" id="week-days-strip"><div class="wday"><div class="wday-name">Sat</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday today"><div class="wday-name">Sun</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Mon</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Tue</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Wed</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Thu</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div><div class="wday"><div class="wday-name">Fri</div><div class="wday-dot"></div><div style="font-size:7px;margin-top:1px;color:inherit"></div></div></div>
     </div>
 
     <!-- TASK SUMMARY -->
@@ -613,14 +613,14 @@ body.is-sunday .sunday-only{display:block}
     </div>
 
     <div class="section-head">Daily anchors</div>
-    <div class="tasks" id="task-list"><div class="task" id="tr0"><div class="chk" id="chk0">✓</div><div style="flex:1"><div class="task-name">Walk with Harley</div><div class="task-meta">Morning anchor · non-negotiable</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr1"><div class="chk" id="chk1">✓</div><div style="flex:1"><div class="task-name">Stretch / mobility / tai chi</div><div class="task-meta">Daily · before or after walk</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task inactive" id="tr2"><div class="chk" id="chk2">✓</div><div style="flex:1"><div class="task-name">Strength session</div><div class="task-meta">Wed · Fri · Sun only · gym or home · not today</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr3"><div class="chk" id="chk3">✓</div><div style="flex:1"><div class="task-name">Meditation</div><div class="task-meta">10–30 min · build the streak</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr4"><div class="chk" id="chk4">✓</div><div style="flex:1"><div class="task-name">Coursera</div><div class="task-meta">Weekly module progress · non-negotiable</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr5"><div class="chk" id="chk5">✓</div><div style="flex:1"><div class="task-name">Reading</div><div class="task-meta">Career-aligned books · 20+ min</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr6"><div class="chk" id="chk6">✓</div><div style="flex:1"><div class="task-name">Job search / work block</div><div class="task-meta">Applications · LinkedIn · research</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr7"><div class="chk" id="chk7">✓</div><div style="flex:1"><div class="task-name">Sleep logged</div><div class="task-meta">Log last night's hours in app</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr8"><div class="chk" id="chk8">✓</div><div style="flex:1"><div class="task-name">Nightly routine</div><div class="task-meta">Wash face · beard oil · clothes laid out</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div></div>
+    <div class="tasks" id="task-list"><div class="task" id="tr0"><div class="chk" id="chk0">✓</div><div style="flex:1"><div class="task-name">Walk with Harley</div><div class="task-meta">Morning anchor · non-negotiable</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr1"><div class="chk" id="chk1">✓</div><div style="flex:1"><div class="task-name">Stretch / mobility / tai chi</div><div class="task-meta">Daily · before or after walk</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr2"><div class="chk" id="chk2">✓</div><div style="flex:1"><div class="task-name">Strength session</div><div class="task-meta">Wed · Fri · Sun only · gym or home</div></div><div class="task-right"><span class="pill body">Body</span></div></div><div class="task" id="tr3"><div class="chk" id="chk3">✓</div><div style="flex:1"><div class="task-name">Meditation</div><div class="task-meta">10–30 min · build the streak</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr4"><div class="chk" id="chk4">✓</div><div style="flex:1"><div class="task-name">Coursera</div><div class="task-meta">Weekly module progress · non-negotiable</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr5"><div class="chk" id="chk5">✓</div><div style="flex:1"><div class="task-name">Reading</div><div class="task-meta">Career-aligned books · 20+ min</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr6"><div class="chk" id="chk6">✓</div><div style="flex:1"><div class="task-name">Job search / work block</div><div class="task-meta">Applications · LinkedIn · research</div></div><div class="task-right"><span class="pill career">Career</span></div></div><div class="task" id="tr7"><div class="chk" id="chk7">✓</div><div style="flex:1"><div class="task-name">Sleep logged</div><div class="task-meta">Log last night's hours in app</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div><div class="task" id="tr8"><div class="chk" id="chk8">✓</div><div style="flex:1"><div class="task-name">Nightly routine</div><div class="task-meta">Wash face · beard oil · clothes laid out</div></div><div class="task-right"><span class="pill mind">Mind</span></div></div></div>
 
     <div class="section-head">Bonus tasks</div>
-    <div class="tasks" id="bonus-list"><div class="task bonus-task" id="tr9"><div class="chk" id="chk9">✓</div><div style="flex:1"><div class="task-name">The Extra Mile</div><div class="task-meta">Additional movement beyond the walk</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr10"><div class="chk" id="chk10">✓</div><div style="flex:1"><div class="task-name">Smart scale weigh-in</div><div class="task-meta">Weekly — log in Sunday tab</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr11"><div class="chk" id="chk11">✓</div><div style="flex:1"><div class="task-name">Macros logged</div><div class="task-meta">Track full day in LoseIt</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div></div>
+    <div class="tasks" id="bonus-list"><div class="task bonus-task" id="tr9"><div class="chk" id="chk9">✓</div><div style="flex:1"><div class="task-name">The Extra Mile</div><div class="task-meta">Additional movement beyond the walk</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr10"><div class="chk" id="chk10">✓</div><div style="flex:1"><div class="task-name">Smart scale weigh-in</div><div class="task-meta">Weekly — log in Reflect tab</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div><div class="task bonus-task" id="tr11"><div class="chk" id="chk11">✓</div><div style="flex:1"><div class="task-name">Macros uploaded</div><div class="task-meta">Log full day macros into project chat</div></div><div class="task-right"><span class="pill bonus">bonus</span></div></div></div>
 
     <div class="sep"></div>
     <div class="lbl" style="margin-bottom:8px">Daily log</div>
-    <div class="share-box" id="share-box">LOA Recovery — Monday, May 11 · Week 1
+    <div class="share-box" id="share-box">LOA Recovery — Sunday, May 24 · Week 1
 
 In: —  ·  Out: still going  ·  —
 
@@ -677,10 +677,10 @@ Streak: 0 days</div>
   <!-- ══════════════════════════════════════════
        SUNDAY REFLECTION TAB
   ══════════════════════════════════════════ -->
-  <div id="tab-sunday" class="panel">
+  <div id="tab-reflect" class="panel">
 
     <div class="reflection-hero">
-      <div class="reflection-title"><em>Sunday</em> Reflection</div>
+      <div class="reflection-title"><em>Reflect</em> Reflection</div>
       <div class="reflection-sub" id="reflection-week-sub">Week 1 check-in · log your numbers</div>
     </div>
 
@@ -870,7 +870,7 @@ const TASKS=[
 ];
 const BONUS=[
   {id:9,name:'The Extra Mile',meta:'Additional movement beyond the walk',tag:'bonus',pts:1},
-  {id:10,name:'Smart scale weigh-in',meta:'Weekly — log in Sunday tab',tag:'bonus',pts:1},
+  {id:10,name:'Smart scale weigh-in',meta:'Weekly — log in Reflect tab',tag:'bonus',pts:1},
   {id:11,name:'Macros uploaded',meta:'Log full day macros into project chat',tag:'bonus',pts:1},
 ];
 const WEEKS=8;
@@ -933,7 +933,7 @@ function isSunday(){return new Date().getDay()===0;}
 
 // ── PERSISTENCE ──────────────────────────────────────
 function load(){
-  try{const r=localStorage.getItem('loa_v6');if(r)S=JSON.parse(r);}catch(e){}
+  try{const r=localStorage.getItem('loa_v7');if(r)S=JSON.parse(r);}catch(e){}
   if(!S.days)S.days={};
   if(!S.weekRewards)S.weekRewards={};
   if(!S.reflections)S.reflections={};
@@ -961,7 +961,7 @@ function persist(){
   S.days[k].anchors=anchors;
   S.days[k].done=anchors>=5;
   S.days[k].perfect=anchors===9;
-  try{localStorage.setItem('loa_v6',JSON.stringify(S));}catch(e){}
+  try{localStorage.setItem('loa_v7',JSON.stringify(S));}catch(e){}
 }
 
 // ── TIER CALCULATION ─────────────────────────────────
@@ -1427,17 +1427,17 @@ function devUnlockAll(){
 
 function openPayPal(){const e=S.setup.paypal;if(!e){alert('Add your PayPal email in Setup.');return;}const t=calcTotalEarned();if(t===0){alert('No rewards earned yet to cash out.');return;}window.open('https://www.paypal.com/myaccount/transfer/homepage/pay?email='+encodeURIComponent(e)+'&amount='+t);}
 function openBuyLink(){const u=S.setup.buylink;if(!u){alert('Add buy link in Setup.');return;}window.open(u);}
-function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v6');}catch(e){}init();}
+function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v7');}catch(e){}init();}
 
 // ── TABS ─────────────────────────────────────────────
 function showTab(name){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tnav').forEach(b=>b.classList.remove('on'));
   document.getElementById('tab-'+name).classList.add('on');
-  const map={today:0,progress:1,sunday:2,setup:3};
+  const map={today:0,progress:1,reflect:2,setup:3};
   document.querySelectorAll('.tnav')[map[name]].classList.add('on');
   if(name==='progress')renderProgress(currentWeek());
-  if(name==='sunday')renderSundayTab();
+  if(name==='reflect')renderSundayTab();
 }
 
 // ── LIVE CLOCK ───────────────────────────────────────
@@ -1453,10 +1453,12 @@ function init(){
   const wk=currentWeek();
   document.getElementById('hdr-week').textContent=wk;
   const start=new Date(S.setup.start||DEFAULT_START);
-  const dayNum=Math.floor((new Date()-start)/(24*3600*1000))+1;
+  start.setHours(0,0,0,0);
+  const today=new Date();today.setHours(0,0,0,0);
+  const dayNum=Math.floor((today-start)/(24*3600*1000))+1;
   document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})+(dayNum>=1&&dayNum<=56?' · Day '+dayNum:'');
   buildTaskList();renderClock();renderTaskSummary();renderWeekHero();renderWeekDaysStrip();renderStats();renderShare();
-  loadSetupFields();renderRewardTab();
+  loadSetupFields();
   setInterval(liveClock,1000);liveClock();
 }
 
