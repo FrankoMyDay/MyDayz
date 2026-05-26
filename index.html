@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/frank/Downloads/index_5.html -->
+<!-- saved from url=(0045)file:///C:/Users/frank/Downloads/index_7.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -553,7 +553,7 @@ body.is-reflect .reflect-only{display:block}
         </div>
         <div class="week-right">
           <div class="tier-badge none" id="tier-badge">No tier yet</div>
-          <div class="week-ceil" id="week-days-left">6 days remaining</div>
+          <div class="week-ceil" id="week-days-left">5 days remaining</div>
         </div>
       </div>
       <div style="margin-top:.6rem;margin-bottom:.5rem">
@@ -578,7 +578,7 @@ body.is-reflect .reflect-only{display:block}
       <div class="row">
         <div>
           <div class="lbl" style="margin-bottom:4px">Clock</div>
-          <div class="clock-display" id="live-clock">1:17:54 PM</div>
+          <div class="clock-display" id="live-clock">8:32:58 PM</div>
           <div class="clock-status" id="clock-status">Working — clock out when done</div>
         </div>
         <div class="btn-row">
@@ -586,10 +586,13 @@ body.is-reflect .reflect-only{display:block}
           <button class="btn r" id="btn-out" onclick="clockOut()">Clock out</button>
         </div>
       </div>
-      <div class="session-row" id="session-row">
-        <div class="col"><div class="lbl">In</div><div class="session-val" id="si-in">1:05 PM</div></div>
-        <div class="col"><div class="lbl">Out</div><div class="session-val" id="si-out">ongoing</div></div>
-        <div class="col"><div class="lbl">Duration</div><div class="session-val" id="si-dur">in progress</div></div>
+      <div id="sessions-list" style="margin-top:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:&#39;DM Mono&#39;,monospace;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);color:var(--text2)">
+        <span>Session 1 &nbsp; 1:05 PM → <span style="color:var(--green2)">active</span></span>
+        <span style="color:var(--text)">...</span>
+      </div></div>
+      <div id="daily-total-row" class="" style="font-family:&#39;DM Mono&#39;,monospace;font-size:11px;color:var(--text2);text-align:right;margin-top:4px;padding-top:4px;border-top:1px solid var(--border)">
+        Daily total: <span id="daily-total">7h 27m</span>
       </div>
     </div>
 
@@ -620,9 +623,9 @@ body.is-reflect .reflect-only{display:block}
 
     <div class="sep"></div>
     <div class="lbl" style="margin-bottom:8px">Daily log</div>
-    <div class="share-box" id="share-box">LOA Recovery — Monday, May 25 · Week 1
+    <div class="share-box" id="share-box">The Calendar of FrankO — Monday, May 25 · Week 1
 
-In: 1:05 PM  ·  Out: still going  ·  —
+In: 1:05 PM  ·  Out: still going  ·  Total: —
 
 Anchors:
 ○ Walk with Harley
@@ -902,12 +905,11 @@ const TIERS=TIER_PHASES[0];
 
 let S={
   tasks:Array(12).fill(false),
-  clockIn:null,clockOut:null,
+  sessions:[],
   days:{
     '2026-5-24':{
       tasks:[true,true,true,true,true,true,true,true,true,false,false,false],
-      clockIn:'2026-05-24T08:00:00',
-      clockOut:'2026-05-24T20:00:00',
+      sessions:[{in:new Date('2026-05-24T08:00:00').getTime(),out:new Date('2026-05-24T20:00:00').getTime()}],
       perfect:false
     }
   },
@@ -950,11 +952,14 @@ function load(){
   const k=todayKey();
   if(S.days[k]){
     S.tasks=S.days[k].tasks||Array(12).fill(false);
-    S.clockIn=S.days[k].clockIn||null;
-    S.clockOut=S.days[k].clockOut||null;
+    S.sessions=S.days[k].sessions||[];
+    // migrate old single clockIn/clockOut to sessions
+    if(!S.sessions.length&&S.days[k].clockIn){
+      S.sessions=[{in:S.days[k].clockIn,out:S.days[k].clockOut||null}];
+    }
   } else {
     S.tasks=Array(12).fill(false);
-    S.clockIn=null;S.clockOut=null;
+    S.sessions=[];
   }
 }
 
@@ -962,8 +967,7 @@ function persist(){
   const k=todayKey();
   if(!S.days[k])S.days[k]={};
   S.days[k].tasks=[...S.tasks];
-  S.days[k].clockIn=S.clockIn;
-  S.days[k].clockOut=S.clockOut;
+  S.days[k].sessions=[...S.sessions];
   const anchors=S.tasks.slice(0,9).filter(Boolean).length;
   S.days[k].anchors=anchors;
   S.days[k].done=anchors>=5;
@@ -1004,8 +1008,20 @@ function calcTotalEarned(){
 }
 
 // ── CLOCK ────────────────────────────────────────────
-function clockIn(){if(S.clockIn)return;S.clockIn=Date.now();persist();renderClock();renderShare();}
-function clockOut(){if(!S.clockIn||S.clockOut)return;S.clockOut=Date.now();persist();renderClock();renderShare();}
+function activeSession(){return S.sessions.find(s=>s.in&&!s.out)||null;}
+
+function clockIn(){
+  if(activeSession())return;
+  S.sessions.push({in:Date.now(),out:null});
+  persist();renderClock();renderShare();
+}
+
+function clockOut(){
+  const a=activeSession();
+  if(!a)return;
+  a.out=Date.now();
+  persist();renderClock();renderShare();
+}
 
 function fmtTime(ts){
   if(!ts)return'—';
@@ -1019,26 +1035,44 @@ function fmtDur(ms){
   return h>0?h+'h '+m+'m':m+'m';
 }
 
+function calcDailyTotal(){
+  return S.sessions.reduce((t,s)=>{
+    if(s.in&&s.out) return t+(s.out-s.in);
+    if(s.in&&!s.out) return t+(Date.now()-s.in);
+    return t;
+  },0);
+}
+
 function renderClock(){
-  const bIn=document.getElementById('btn-in'),bOut=document.getElementById('btn-out');
-  const st=document.getElementById('clock-status'),sr=document.getElementById('session-row');
-  if(!S.clockIn){
-    bIn.classList.remove('hidden');bOut.classList.add('hidden');
-    st.textContent='Not clocked in';sr.classList.add('hidden');
-  } else if(!S.clockOut){
-    bIn.classList.add('hidden');bOut.classList.remove('hidden');
+  const bIn=document.getElementById('btn-in');
+  const bOut=document.getElementById('btn-out');
+  const st=document.getElementById('clock-status');
+  const list=document.getElementById('sessions-list');
+  const totalRow=document.getElementById('daily-total-row');
+  const active=activeSession();
+
+  if(active){
+    bIn.classList.add('hidden');
+    bOut.classList.remove('hidden');
     st.textContent='Working — clock out when done';
-    sr.classList.remove('hidden');
-    document.getElementById('si-in').textContent=fmtTime(S.clockIn);
-    document.getElementById('si-out').textContent='ongoing';
-    document.getElementById('si-dur').textContent='in progress';
   } else {
-    bIn.classList.add('hidden');bOut.classList.add('hidden');
-    st.textContent='Day complete ✓';
-    sr.classList.remove('hidden');
-    document.getElementById('si-in').textContent=fmtTime(S.clockIn);
-    document.getElementById('si-out').textContent=fmtTime(S.clockOut);
-    document.getElementById('si-dur').textContent=fmtDur(S.clockOut-S.clockIn);
+    bIn.classList.remove('hidden');
+    bOut.classList.add('hidden');
+    st.textContent=S.sessions.length>0?'Clocked out — clock back in anytime':'Not clocked in';
+  }
+
+  if(S.sessions.length>0){
+    list.innerHTML=S.sessions.map((s,i)=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);color:var(--text2)">
+        <span>Session ${i+1} &nbsp; ${fmtTime(s.in)} → ${s.out?fmtTime(s.out):'<span style="color:var(--green2)">active</span>'}</span>
+        <span style="color:var(--text)">${s.out?fmtDur(s.out-s.in):'...'}</span>
+      </div>`).join('');
+    const total=calcDailyTotal();
+    document.getElementById('daily-total').textContent=fmtDur(total);
+    totalRow.classList.remove('hidden');
+  } else {
+    list.innerHTML='';
+    totalRow.classList.add('hidden');
   }
 }
 
@@ -1365,7 +1399,10 @@ function renderShare(){
   const bonuses=bonusNames.map((n,i)=>(S.tasks[9+i]?'✓':'○')+' '+n).join('\n');
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   const streak=calcStreak();const wk=currentWeek();
-  document.getElementById('share-box').textContent=`LOA Recovery — ${today} · Week ${wk}\n\nIn: ${fmtTime(S.clockIn)}  ·  Out: ${S.clockOut?fmtTime(S.clockOut):'still going'}  ·  ${(S.clockIn&&S.clockOut)?fmtDur(S.clockOut-S.clockIn):'—'}\n\nAnchors:\n${anchors}\n\nBonus:\n${bonuses}\n\nStreak: ${streak} days`;
+  const totalMs=S.sessions.reduce((t,s)=>s.in&&s.out?t+(s.out-s.in):t,0);
+  const firstIn=S.sessions.length?fmtTime(S.sessions[0].in):'—';
+  const lastOut=S.sessions.length&&S.sessions[S.sessions.length-1].out?fmtTime(S.sessions[S.sessions.length-1].out):'still going';
+  document.getElementById('share-box').textContent=`The Calendar of FrankO — ${today} · Week ${wk}\n\nIn: ${firstIn}  ·  Out: ${lastOut}  ·  Total: ${totalMs>0?fmtDur(totalMs):'—'}\n\nAnchors:\n${anchors}\n\nBonus:\n${bonuses}\n\nStreak: ${streak} days`;
 }
 
 function copyLog(){navigator.clipboard.writeText(document.getElementById('share-box').textContent).then(()=>alert('Log copied!'));}
@@ -1434,7 +1471,7 @@ function devUnlockAll(){
 
 function openPayPal(){const e=S.setup.paypal;if(!e){alert('Add your PayPal email in Setup.');return;}const t=calcTotalEarned();if(t===0){alert('No rewards earned yet to cash out.');return;}window.open('https://www.paypal.com/myaccount/transfer/homepage/pay?email='+encodeURIComponent(e)+'&amount='+t);}
 function openBuyLink(){const u=S.setup.buylink;if(!u){alert('Add buy link in Setup.');return;}window.open(u);}
-function resetAll(){S={tasks:Array(12).fill(false),clockIn:null,clockOut:null,days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v8');}catch(e){}init();}
+function resetAll(){S={tasks:Array(12).fill(false),sessions:[],days:{},weekRewards:{},reflections:{},setup:{spouse:'',mom:'',paypal:'',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:'',bf:'',visceral:'',muscle:''}}};try{localStorage.removeItem('loa_v8');}catch(e){}init();}
 
 // ── TABS ─────────────────────────────────────────────
 function showTab(name){
@@ -1452,6 +1489,13 @@ function liveClock(){
   const d=new Date();let h=d.getHours(),m=d.getMinutes(),s=d.getSeconds();
   const ap=h>=12?'PM':'AM';h=h%12||12;
   document.getElementById('live-clock').textContent=h+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+' '+ap;
+  // auto clock out at midnight
+  if(d.getHours()===0&&d.getMinutes()===0&&d.getSeconds()<3){
+    const a=activeSession();
+    if(a){a.out=Date.now();persist();renderClock();}
+  }
+  // update active session duration live
+  if(activeSession())renderClock();
 }
 
 // ── INIT ─────────────────────────────────────────────
