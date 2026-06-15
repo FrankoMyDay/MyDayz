@@ -262,7 +262,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
   </div>
   <div class="stat-strip">
     <div class="stat-pill"><div class="stat-pill-val" id="top-streak">0</div><div class="stat-pill-lbl">Streak</div></div>
-    <div class="stat-pill"><div class="stat-pill-val" id="top-earned">$75</div><div class="stat-pill-lbl">Earned</div></div>
+    <div class="stat-pill"><div class="stat-pill-val" id="top-earned">$0</div><div class="stat-pill-lbl">Earned</div></div>
     <div class="stat-pill"><div class="stat-pill-val" id="top-weeks">0/4</div><div class="stat-pill-lbl">Weeks</div></div>
   </div>
 </div>
@@ -271,7 +271,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 <div class="tab-nav">
   <button class="tnav on" onclick="showTab('today')">Today</button>
   <button class="tnav" onclick="showTab('progress')">Progress</button>
-  <button class="tnav" onclick="showTab('sunday')">Sunday</button>
+  <button class="tnav" onclick="showTab('sunday')">Monday</button>
   <button class="tnav" onclick="showTab('setup')">Setup</button>
 </div>
 
@@ -367,7 +367,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
   <div class="prog-grid">
     <div class="prog-stat"><div class="prog-stat-val" id="prog-streak">0</div><div class="prog-stat-lbl">Streak</div></div>
     <div class="prog-stat"><div class="prog-stat-val" id="prog-perfect">0</div><div class="prog-stat-lbl">Perfect Days</div></div>
-    <div class="prog-stat"><div class="prog-stat-val" id="prog-earned">$75</div><div class="prog-stat-lbl">Earned</div></div>
+    <div class="prog-stat"><div class="prog-stat-val" id="prog-earned">$0</div><div class="prog-stat-lbl">Earned</div></div>
   </div>
   <div class="card">
     <div class="lbl" style="margin-bottom:8px">4-Week Plan</div>
@@ -386,7 +386,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 <!-- SUNDAY TAB -->
 <div id="tab-sunday" class="panel">
   <div class="reflection-hero">
-    <div class="reflection-title"><em>Sunday</em> Reflection</div>
+    <div class="reflection-title"><em>Monday</em> Reflection</div>
     <div class="reflection-sub" id="reflection-week-sub">Week check-in · log your numbers</div>
   </div>
 
@@ -538,7 +538,7 @@ let S={
   ninetyMs:0,ninetyRunning:false,ninetyLast:null,
   sessions:[],
   days:{},
-  weekRewards:{1:{tier:'t3',name:'Perfect Week',amt:75,claimed:true}},
+  weekRewards:{},
   reflections:{},
   setup:{
     spouse:'doriannemaxwell@gmail.com',
@@ -589,7 +589,6 @@ function load(){
     S.ninetyMs=0;S.ninetyRunning=false;S.ninetyLast=null;
   }
   if(!S.weekRewards)S.weekRewards={};
-  if(!S.weekRewards[1])S.weekRewards[1]={tier:'t3',name:'Perfect Week',amt:75,claimed:true};
 
   // one-time: populate Week 1 Sunday reflection (June 14, 2026 data) if not already entered
   if(!S.reflections)S.reflections={};
@@ -871,7 +870,7 @@ function renderWeekHero(){
   const wk=currentWeek();
   const tier=calcWeekTier(wk);
   // only show claimed amount if it was actually earned this plan (not the pre-loaded Week 1 credit)
-  const claimed=S.weekRewards[wk]&&S.weekRewards[wk].claimed&&!(wk===1&&S.weekRewards[wk].amt===75&&!S.weekRewards[wk].earnedInPlan)?S.weekRewards[wk]:null;
+  const claimed=S.weekRewards[wk]&&S.weekRewards[wk].claimed?S.weekRewards[wk]:null;
   const amt=claimed?claimed.amt:(tier?tier.amt:0);
   document.getElementById('week-earned').textContent='$'+amt;
   const badge=document.getElementById('tier-badge');
@@ -924,7 +923,7 @@ function renderWeekDaysStrip(){
 // ── STATS ───────────────────────────────────────────
 function renderStats(){
   const streak=calcStreak();const total=calcTotalEarned();
-  const weeksComplete=Object.keys(S.weekRewards).filter(w=>parseInt(w)>1&&S.weekRewards[w]&&S.weekRewards[w].claimed).length;
+  const weeksComplete=Object.keys(S.weekRewards).filter(w=>S.weekRewards[w]&&S.weekRewards[w].claimed).length;
   document.getElementById('top-streak').textContent=streak;
   document.getElementById('top-earned').textContent='$'+total;
   document.getElementById('top-weeks').textContent=weeksComplete+'/'+WEEKS;
@@ -960,7 +959,7 @@ function renderPuzzleBig(){
     p.innerHTML=`<div class="piece-num">${done?'✓':w}</div><div class="piece-dot"></div>`;
     grid.appendChild(p);
   }
-  const weeksComplete=Object.values(S.weekRewards).filter((r,i)=>r&&r.claimed&&r.earnedInPlan).length;
+  const weeksComplete=Object.values(S.weekRewards).filter(r=>r&&r.claimed).length;
   document.getElementById('prog-overall-bar').style.width=Math.round(weeksComplete/WEEKS*100)+'%';
   document.getElementById('prog-overall-lbl').textContent=weeksComplete+' of '+WEEKS+' weeks complete';
 }
@@ -996,7 +995,7 @@ function renderProgress(wk){
 // ── BIOMETRIC TRACKER ───────────────────────────────
 function renderBioSection(){
   const el=document.getElementById('bio-section');if(!el)return;
-  const wk=currentWeek();
+  const wk=reflectionWeek();
   const ref=S.reflections[wk]||{};
   el.innerHTML='';
   BIO_METRICS.forEach(m=>{
@@ -1023,7 +1022,7 @@ function renderBioSection(){
 }
 
 function updateBioMetric(key,val){
-  const wk=currentWeek();
+  const wk=reflectionWeek();
   if(!S.reflections[wk])S.reflections[wk]={};
   S.reflections[wk][key]=parseFloat(val)||0;
   persist();renderBioSection();
@@ -1045,11 +1044,13 @@ function getWeeklyNinetyTotal(wk){
   return totalMs;
 }
 
-// ── SUNDAY TAB ──────────────────────────────────────
+// ── REFLECTION TAB (Monday — looks back at the week just finished) ──
+function reflectionWeek(){return Math.max(currentWeek()-1,1);}
+
 function renderSundayTab(){
-  const wk=currentWeek();
-  document.getElementById('reflection-week-sub').textContent='Week '+wk+' check-in · log your numbers';
-  document.getElementById('sleep-threshold-lbl').textContent='Min: '+getSleepMin()+' (Week '+wk+')';
+  const wk=reflectionWeek();
+  document.getElementById('reflection-week-sub').textContent='Week '+wk+' wrap-up · log your numbers';
+  document.getElementById('sleep-threshold-lbl').textContent='Min: '+SLEEP_THRESHOLDS[wk-1]+' (Week '+wk+')';
   const ref=S.reflections[wk]||{};
   ['sleep','avgsleep','notes'].forEach(k=>{const el=document.getElementById('m-'+k);if(el)el.value=ref[k]||'';});
   // coursera pct — auto-calculated from The 90 weekly total vs 7-day x 90min target
@@ -1061,19 +1062,19 @@ function renderSundayTab(){
 }
 
 function saveSundayField(key,val){
-  const wk=currentWeek();
+  const wk=reflectionWeek();
   if(!S.reflections[wk])S.reflections[wk]={};
   S.reflections[wk][key]=val;persist();
 }
 
-// ── SUNDAY EMAIL ────────────────────────────────────
+// ── MONDAY REFLECTION EMAIL ──────────────────────────
 function sendSundayEmail(){
-  const setup=S.setup;const wk=currentWeek();
+  const setup=S.setup;const wk=reflectionWeek();
   const ref=S.reflections[wk]||{};
   const r=calcWeekTier(wk);const claimed=S.weekRewards[wk];
-  const subject=`FrankO Week ${wk} Sunday Reflection`;
+  const subject=`FrankO Week ${wk} Reflection`;
   const bioLines=BIO_METRICS.map(m=>`${m.label}: ${ref[m.key]||'—'} ${m.unit}`).join('\n');
-  const body=`Week ${wk} Sunday Reflection — The Calendar of FrankO\n\nBODY COMPOSITION\n${bioLines}\n\nWEEKLY WELLNESS\nAvg Sleep: ${ref.avgsleep||'—'} hrs/night\n\nWEEK REWARD\nTier: ${claimed?claimed.name:r?r.name:'Not earned'}\nAmount: $${claimed?claimed.amt:r?r.amt:0}\n\nREFLECTION\n${ref.notes||'No notes this week.'}\n\n---\nThe Calendar of FrankO`;
+  const body=`Week ${wk} Reflection — The Calendar of FrankO\n\nBODY COMPOSITION\n${bioLines}\n\nWEEKLY WELLNESS\nAvg Sleep: ${ref.avgsleep||'—'} hrs/night\n\nWEEK REWARD\nTier: ${claimed?claimed.name:r?r.name:'Not earned'}\nAmount: $${claimed?claimed.amt:r?r.amt:0}\n\nREFLECTION\n${ref.notes||'No notes this week.'}\n\n---\nThe Calendar of FrankO`;
   window.location.href=`mailto:${setup.spouse},${setup.mom}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -1136,13 +1137,13 @@ function claimWeekReward(){
   const wk=currentWeek();const tier=calcWeekTier(wk);
   if(!tier){alert('No tier earned yet this week.');return;}
   if(S.weekRewards[wk]&&S.weekRewards[wk].claimed){alert('Already claimed for Week '+wk);return;}
-  S.weekRewards[wk]={...tier,claimed:true,earnedInPlan:true};
+  S.weekRewards[wk]={...tier,claimed:true};
   persist();renderStats();renderWeekHero();alert('$'+tier.amt+' claimed! Total earned: $'+calcTotalEarned());
 }
 
 // ── RESET ────────────────────────────────────────────
 function resetAll(){
-  S={tasks:Array(9).fill(false),zenTaps:[false,false],strengthWeek:{},ninetyMs:0,ninetyRunning:false,ninetyLast:null,sessions:[],days:{},weekRewards:{1:{tier:'t3',name:'Perfect Week',amt:75,claimed:true}},reflections:{},setup:{spouse:'doriannemaxwell@gmail.com',mom:'fkwell@yahoo.com',paypal:'frankomaxwell1980@outlook.com',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:164.9,bf:23,visceral:12,muscle:63.7,subcut:19.6,metage:47},goals:{weight:155,bf:20,visceral:10,muscle:66,subcut:17,metage:43}}};
+  S={tasks:Array(9).fill(false),zenTaps:[false,false],strengthWeek:{},ninetyMs:0,ninetyRunning:false,ninetyLast:null,sessions:[],days:{},weekRewards:{},reflections:{},setup:{spouse:'doriannemaxwell@gmail.com',mom:'fkwell@yahoo.com',paypal:'frankomaxwell1980@outlook.com',buylink:'',buylabel:'',start:DEFAULT_START,base:{weight:164.9,bf:23,visceral:12,muscle:63.7,subcut:19.6,metage:47},goals:{weight:155,bf:20,visceral:10,muscle:66,subcut:17,metage:43}}};
   try{localStorage.removeItem(SK);}catch(e){}
   init();
 }
