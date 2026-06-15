@@ -553,6 +553,26 @@ let S={
 
 function load(){
   try{const r=localStorage.getItem(SK);if(r)S=JSON.parse(r);}catch(e){}
+  // one-time migration: check old storage keys and merge their day data forward
+  try{
+    const oldKeys=['franko_cal_v9','franko_cal_v8','franko_cal_v7','loa_v9','loa_v8','loa_v7'];
+    let migrated=false;
+    oldKeys.forEach(ok=>{
+      const old=localStorage.getItem(ok);
+      if(old){
+        try{
+          const od=JSON.parse(old);
+          if(od.days){
+            Object.keys(od.days).forEach(dk=>{
+              if(!S.days[dk])S.days[dk]=od.days[dk];
+            });
+            migrated=true;
+          }
+        }catch(e){}
+      }
+    });
+    if(migrated)persist();
+  }catch(e){}
   // migrate open sessions from previous day
   autoCloseOldSessions();
   const k=todayKey();
@@ -570,6 +590,34 @@ function load(){
   }
   if(!S.weekRewards)S.weekRewards={};
   if(!S.weekRewards[1])S.weekRewards[1]={tier:'t3',name:'Perfect Week',amt:75,claimed:true};
+
+  // one-time: populate Week 1 Sunday reflection (June 14, 2026 data) if not already entered
+  if(!S.reflections)S.reflections={};
+  if(!S.reflections[1]||!S.reflections[1]._seeded){
+    S.reflections[1]={
+      weight:160.4, bf:21.7, visceral:12, muscle:65.4, subcut:18.7, metage:47,
+      avgsleep:'5.38', sleep:'5.38',
+      notes:"Challenging week especially going back and forth between houses. Despite that I still accomplished quite a bit and it gave me some practice for this week. Dee is off for 10 days and disability runs til July 1st (likely extended), but didn't want to lose 10 days of momentum after finally picking up steam two weeks ago. Strength training made me sore as hell but I can feel the benefits and a gain in muscle mass.",
+      _seeded:true
+    };
+  }
+
+  // one-time: populate June 14, 2026 (Sunday) day record — 7/8 anchors, missing Nocturnal Routine, Overachiever hit, The 90 at 65:47
+  const june14Key='2026-6-14';
+  if(!S.days[june14Key]||!S.days[june14Key]._seeded){
+    S.days[june14Key]={
+      tasks:[true,true,true,true,true,true,false,true,true], // index 6 = Nocturnal Routine = false
+      sessions:[],
+      zenTaps:[true,true],
+      ninetyMs:(65*60+47)*1000,
+      anchors:7,
+      done:true,
+      perfect:false,
+      _seeded:true
+    };
+  }
+
+  try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
 }
 
 function persist(){
@@ -590,24 +638,31 @@ function persist(){
 function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 
 function currentWeek(){
-  const start=new Date(S.setup.start||DEFAULT_START);start.setHours(0,0,0,0);
+  const startStr=S.setup.start||DEFAULT_START;
+  const [sy,sm,sd]=startStr.split('-').map(Number);
+  const start=new Date(sy,sm-1,sd,0,0,0,0);
   const now=new Date();now.setHours(0,0,0,0);
   const diff=Math.floor((now-start)/(24*3600*1000));
   return Math.min(Math.max(Math.floor(diff/7)+1,1),WEEKS);
 }
 
 function weekStart(w){
-  const s=new Date(S.setup.start||DEFAULT_START);s.setHours(0,0,0,0);
+  const [sy,sm,sd]=(S.setup.start||DEFAULT_START).split('-').map(Number);
+  const s=new Date(sy,sm-1,sd,0,0,0,0);
   s.setDate(s.getDate()+(w-1)*7);return s;
 }
 
 function getPlanDay(){
-  const start=new Date(S.setup.start||DEFAULT_START);start.setHours(0,0,0,0);
+  const [sy,sm,sd]=(S.setup.start||DEFAULT_START).split('-').map(Number);
+  const start=new Date(sy,sm-1,sd,0,0,0,0);
   const now=new Date();now.setHours(0,0,0,0);
   return Math.floor((now-start)/(24*3600*1000))+1;
 }
 
-function getSleepMin(){return currentWeek()===1?5:6;}
+const SLEEP_THRESHOLDS=['5h 00m','5h 20m','5h 40m','6h 00m'];
+const SLEEP_THRESHOLD_HRS=[5, 5+20/60, 5+40/60, 6];
+function getSleepMin(){return SLEEP_THRESHOLDS[currentWeek()-1]||'6h 00m';}
+function getSleepMinHrs(){return SLEEP_THRESHOLD_HRS[currentWeek()-1]||6;}
 
 // ── AUTO CLOSE OLD SESSIONS ─────────────────────────
 function autoCloseOldSessions(){
@@ -746,7 +801,7 @@ function renderZen(){
 }
 
 // ── STRENGTH TRACKER ────────────────────────────────
-function getStrengthKey(){const wk=currentWeek();const ws=weekStart(wk);return wk+'-'+ws.toISOString().slice(0,10);}
+function getStrengthKey(){const wk=currentWeek();const ws=weekStart(wk);return wk+'-'+ws.getFullYear()+'-'+(ws.getMonth()+1)+'-'+ws.getDate();}
 
 function toggleStrength(idx){
   const k=getStrengthKey();if(!S.strengthWeek)S.strengthWeek={};
@@ -974,15 +1029,34 @@ function updateBioMetric(key,val){
   persist();renderBioSection();
 }
 
+function getWeeklyNinetyTotal(wk){
+  const ws=weekStart(wk);let totalMs=0;
+  for(let d=0;d<7;d++){
+    const dd=new Date(ws);dd.setDate(dd.getDate()+d);
+    const key=dd.getFullYear()+'-'+(dd.getMonth()+1)+'-'+dd.getDate();
+    const day=S.days[key];
+    if(day&&day.ninetyMs)totalMs+=day.ninetyMs;
+  }
+  // include today's live running total if applicable
+  if(wk===currentWeek()){
+    const todayK=todayKey();
+    if(!S.days[todayK]||!S.days[todayK].ninetyMs){totalMs+=getNinetyMs();}
+  }
+  return totalMs;
+}
+
 // ── SUNDAY TAB ──────────────────────────────────────
 function renderSundayTab(){
   const wk=currentWeek();
   document.getElementById('reflection-week-sub').textContent='Week '+wk+' check-in · log your numbers';
-  document.getElementById('sleep-threshold-lbl').textContent='Min: '+getSleepMin()+' hrs (Week '+wk+')';
+  document.getElementById('sleep-threshold-lbl').textContent='Min: '+getSleepMin()+' (Week '+wk+')';
   const ref=S.reflections[wk]||{};
   ['sleep','avgsleep','notes'].forEach(k=>{const el=document.getElementById('m-'+k);if(el)el.value=ref[k]||'';});
-  // coursera pct
-  const cEl=document.getElementById('m-coursera');if(cEl)cEl.value=ref.coursera||'';
+  // coursera pct — auto-calculated from The 90 weekly total vs 7-day x 90min target
+  const totalMs=getWeeklyNinetyTotal(wk);
+  const weeklyTargetMs=7*90*60*1000;
+  const pct=Math.min(Math.round(totalMs/weeklyTargetMs*100),100);
+  const cEl=document.getElementById('m-coursera');if(cEl)cEl.value=pct;
   renderBioSection();
 }
 
@@ -1087,7 +1161,9 @@ function init(){
   load();
   const wk=currentWeek();
   document.getElementById('hdr-week').textContent=wk;
-  const start=new Date(S.setup.start||DEFAULT_START);start.setHours(0,0,0,0);
+  const startStr=S.setup.start||DEFAULT_START;
+  const [sy,sm,sd]=startStr.split('-').map(Number);
+  const start=new Date(sy,sm-1,sd,0,0,0,0);
   const today=new Date();today.setHours(0,0,0,0);
   const dayNum=Math.floor((today-start)/(24*3600*1000))+1;
   document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})+(dayNum>=1&&dayNum<=28?' · Day '+dayNum:'');
